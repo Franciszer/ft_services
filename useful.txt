@@ -1,4 +1,1 @@
-https://kubernetes.io/docs/tutorials/kubernetes-basics/
-https://kubernetes.io/docs/tutorials/hello-minikube/
-https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/#understanding-pods
-
+https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/

@@ -1,21 +1,15 @@
-FROM nginx:alpine
+FROM alpine 
 
-RUN apk upgrade --update-cache --available && \
-    apk add openssl openssh && \
-    rm -rf /var/cache/apk/*
+USER root
 
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/C=FR/ST=75/L=Paris/O=42/CN=sdunckel' -keyout /etc/ssl/certs/localhost.key -out /etc/ssl/certs/localhost.crt
+# Copy files
+COPY srcs/instal_model.sh /tmp/instal_model.sh
+COPY srcs/nginx.conf /etc/nginx/nginx.conf
+COPY files/index.html /var/www/localhost/htdocs/index.html
 
-COPY files/nginx.conf /etc/nginx/nginx.conf
-COPY scripts/start.sh /start.sh
-COPY files/index.html /usr/share/nginx/html
+# Run Install
+RUN sh /tmp/instal_model.sh 
 
-COPY files/sshd_config /etc/ssh/
+EXPOSE 22 80 443
 
-COPY files/ssh_host_dsa_key /etc/ssh
-COPY files/ssh_host_rsa_key /etc/ssh
-
-RUN chmod 600 /etc/ssh/ssh_host_*
-
-EXPOSE 4000 80 443
-ENTRYPOINT sh /start.sh
+ENTRYPOINT /etc/init.d/telegraf start; /etc/init.d/sshd start; nginx -g "daemon off;"
