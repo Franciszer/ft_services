@@ -1,1 +1,6 @@
+Wordpress:
+	admin:password
+DATABASE:
+	admin:password
+
 https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
