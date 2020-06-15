@@ -1,6 +1,7 @@
 Wordpress:
 	admin:password
 DATABASE:
+	root:password
+FTPS:
 	admin:password
-
 https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/

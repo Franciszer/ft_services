@@ -1,16 +1,4 @@
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: phpmyadmin
-spec:
-  ports:
-    - port: 80
-      nodePort: 5000
-  selector:
-    app: phpmyadmin
-  type: NodePort
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -39,3 +27,15 @@ spec:
               value: root
             - name: PMA_PASSWORD
               value: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+spec:
+  ports:
+    - port: 80
+      nodePort: 5000
+  selector:
+    app: phpmyadmin
+  type: NodePort

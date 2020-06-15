@@ -1,7 +1,7 @@
  #!/bin/sh
 
-SERVICES="mysql phpmyadmin nginx wordpress"
-CONTAINERS="mysql wordpress nginx"
+SERVICES="mysql phpmyadmin nginx wordpress ftps"
+CONTAINERS="mysql wordpress nginx ftps"
 
 # COLORS
 GREEN='\033[0;32m'
@@ -45,21 +45,17 @@ cp srcs/ftps/scripts/start.sh srcs/ftps/scripts/start-tmp.sh
 sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/ftps/scripts/start-tmp.sh
 
 # BUILDING CONTAINERS
-echo -e "\n${YELLOW}__BUILDING CONTAINERS__${NC}\n"
+echo -e "\n${YELLOW}____BUILDING CONTAINERS____${NC}\n"
 for CONTAINER in $CONTAINERS
 do
 	build_container $CONTAINER
 done
 
-echo -e "\n${GREEN}ALL CONTAINERS BUILT${NC}\n"
-
-# docker build -t mysql_alpine srcs/mysql
-# docker build -t wordpress_alpine srcs/wordpress
-# docker build -t nginx_alpine srcs/nginx
+echo -e "\n${GREEN}ALL CONTAINERS BUILT${NC}"
 
 # SERVICES DEPLOYMENTS
 
-echo -e "\n${YELLOW}__DEPLOYING SERVICES__\n${NC}\n"
+echo -e "\n${YELLOW}____DEPLOYING SERVICES____\n${NC}"
 
 for SERVICE in $SERVICES
 do
@@ -70,15 +66,11 @@ kubectl apply -f srcs/deployments/ingress_setup.yaml > /dev/null
 
 echo -e "\n${GREEN}ALL SERVICES DEPLOYED${NC}\n"
 
-# kubectl apply -f srcs/mysql.yaml
-# kubectl apply -f srcs/phpmyadmin.yaml
-# kubectl apply -f srcs/nginx_setup.yaml
-# kubectl apply -f srcs/wordpress.yaml
-# kubectl apply -f srcs/ingress_setup.yaml
-
 kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql -u root -e 'CREATE DATABASE wordpress;'
 kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/WordPress/files/wordpress-tmp.sql
 
 rm -rf srcs/wordpress/files/wordpress-tmp.sql
-# kubectl	apply -f srcs/ftps.yaml
-# docker build -t ftps_alpine srcs/ftps
+
+minikube service list
+#kubectl apply -f srcs/deployments/ftps_setup.yaml
+#docker build -t ftps_alpine srcs/ftps
