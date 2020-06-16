@@ -4,4 +4,7 @@ DATABASE:
 	root:password
 FTPS:
 	admin:password
+INFLUXDB:
+	admin:admin
+	user:password
 https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
