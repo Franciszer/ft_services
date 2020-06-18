@@ -1,3 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    nodePort: 5000
+    name: http
+    protocol: TCP
+  selector:
+    app: phpmyadmin
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -16,26 +31,15 @@ spec:
         app: phpmyadmin
     spec:
       containers:
-        - name: phpmyadmin
-          image: etopian/phpmyadmin
-          ports:
-            - containerPort: 80
-          env:
-            - name: MYSQL_HOSTNAME
-              value: mysql
-            - name: PMA_USERNAME
-              value: root
-            - name: PMA_PASSWORD
-              value: password
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: phpmyadmin
-spec:
-  ports:
-    - port: 80
-      nodePort: 5000
-  selector:
-    app: phpmyadmin
-  type: NodePort
+      - name: phpmyadmin
+        image: phpmyadmin_alpine
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Never
+        env:
+          - name: PMA_HOST
+            value: mysql
+          - name: PMA_USER
+            value: root
+          - name: PMA_PASSWORD
+            value: password

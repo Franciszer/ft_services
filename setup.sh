@@ -1,7 +1,7 @@
  #!/bin/sh
 
-SERVICES="mysql phpmyadmin nginx wordpress ftps telegraf influxdb grafana"
-CONTAINERS="mysql wordpress nginx ftps grafana"
+SERVICES="mysql nginx phpmyadmin wordpress ftps influxdb grafana telegraf"
+CONTAINERS="mysql phpmyadmin wordpress nginx ftps influxdb grafana"
 
 # COLORS
 GREEN='\033[0;32m'
@@ -32,6 +32,12 @@ function build_container()
 }
 
 rm -rf logs > /dev/null 2>&1
+rm -rf srcs/wordpress/files/wordpress-tmp.sql > /dev/null 2>&1
+rm -rf srcs/nginx/files/index-tmp.html > /dev/null 2>&1
+mkdir ./logs > /dev/null 2>&1
+mkdir ./logs/build > /dev/null 2>&1
+mkdir ./logs/deployment > /dev/null 2>&1
+
 
 # SETTING UP MINIKUBE
 minikube start --cpus=2 --memory 4000 --vm-driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
@@ -39,21 +45,23 @@ minikube addons enable metrics-server
 minikube addons enable ingress
 minikube addons enable dashboard
 
+eval $(minikube docker-env)
+
 # SET ENV VARIABLE
 MINIKUBE_IP=$(minikube ip)
 
-eval $(minikube docker-env)
-
-mkdir ./logs
-mkdir ./logs/build
-mkdir ./logs/deployment
+# cp srcs/nginx/files/index.html srcs/nginx/files/index-tmp.html
+# sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/nginx/files/index-tmp.html
 cp srcs/WordPress/files/wordpress.sql srcs/WordPress/files/wordpress-tmp.sql
 sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/WordPress/files/wordpress-tmp.sql
 cp srcs/ftps/scripts/start.sh srcs/ftps/scripts/start-tmp.sh
 sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/ftps/scripts/start-tmp.sh
+cp srcs/nginx/files/index.html srcs/nginx/files/index-tmp.html
+sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/nginx/files/index-tmp.html
 
 # BUILDING CONTAINERS
 echo -e "\n${YELLOW}____BUILDING CONTAINERS____${NC}\n"
+
 for CONTAINER in $CONTAINERS
 do
 	build_container $CONTAINER
