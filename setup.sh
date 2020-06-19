@@ -50,8 +50,6 @@ eval $(minikube docker-env)
 # SET ENV VARIABLE
 MINIKUBE_IP=$(minikube ip)
 
-# cp srcs/nginx/files/index.html srcs/nginx/files/index-tmp.html
-# sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/nginx/files/index-tmp.html
 cp srcs/WordPress/files/wordpress.sql srcs/WordPress/files/wordpress-tmp.sql
 sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/WordPress/files/wordpress-tmp.sql
 cp srcs/ftps/scripts/start.sh srcs/ftps/scripts/start-tmp.sh

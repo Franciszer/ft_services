@@ -6,5 +6,5 @@ datasources:
   access: proxy
   isDefault: true
   user: root
-  password: password
+  secureJsonData.password: password
   database: influxdb
