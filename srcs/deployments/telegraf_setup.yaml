@@ -82,8 +82,9 @@ spec:
     spec:
       serviceAccountName: telegraf-account
       containers:
-        - image: telegraf:alpine
+        - image: telegraf_alpine
           name: telegraf
+          imagePullPolicy: Never
           volumeMounts:
             - mountPath: /etc/telegraf/telegraf.conf
               name: telegraf-config

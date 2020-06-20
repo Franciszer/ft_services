@@ -1,7 +1,7 @@
  #!/bin/sh
 
 SERVICES="mysql nginx phpmyadmin wordpress ftps influxdb grafana telegraf"
-CONTAINERS="mysql phpmyadmin wordpress nginx ftps influxdb grafana"
+CONTAINERS="mysql phpmyadmin wordpress nginx ftps influxdb grafana telegraf"
 
 # COLORS
 GREEN='\033[0;32m'
@@ -12,7 +12,7 @@ NC='\033[0m'
 # DEPLOYMENTS
 function deploy()
 {
-	kubectl apply -f srcs/deployments/$@_setup.yaml > logs/deployment/$@.txt 2>&1
+	kubectl apply -f srcs/deployments/$@_setup.yaml > logs/deployment/$@ 2>&1
 	echo -e "${LIGHT_BLUE}Deploying $@...${NC}"
 	sleep 2;
 	while [[ $(kubectl get pods -l app=$@ -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do
@@ -26,7 +26,7 @@ function deploy()
 function build_container()
 {
 	echo -e "${LIGHT_BLUE}Building $@ container...${NC}"
-	docker build -t $@_alpine srcs/$@ > logs/build/$@.txt 2>&1
+	docker build -t $@_alpine srcs/$@ > logs/build/$@ 2>&1
 	echo -e "\r\033[1A                 "
 	echo -e "\r\033[1A${GREEN}✓	$@ container successfully built${NC}"
 }
@@ -50,12 +50,17 @@ eval $(minikube docker-env)
 # SET ENV VARIABLE
 MINIKUBE_IP=$(minikube ip)
 
-cp srcs/WordPress/files/wordpress.sql srcs/WordPress/files/wordpress-tmp.sql
-sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/WordPress/files/wordpress-tmp.sql
+cp srcs/wordpress/files/wordpress.sql srcs/wordpress/files/wordpress-tmp.sql
+sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/wordpress/files/wordpress-tmp.sql
 cp srcs/ftps/scripts/start.sh srcs/ftps/scripts/start-tmp.sh
 sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/ftps/scripts/start-tmp.sh
 cp srcs/nginx/files/index.html srcs/nginx/files/index-tmp.html
 sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/nginx/files/index-tmp.html
+cp srcs/deployments/telegraf_setup.yaml srcs/deployments/telegraf-tmp_setup.yaml
+sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/deployments/telegraf-tmp_setup.yaml
+cp srcs/telegraf/telegraf.conf srcs/telegraf/telegraf-tmp.conf
+sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/telegraf/telegraf-tmp.conf
+sed -i '' "s/USER_TELEGRAF/telegraf/g" srcs/telegraf/telegraf-tmp.conf
 
 # BUILDING CONTAINERS
 echo -e "\n${YELLOW}____BUILDING CONTAINERS____${NC}\n"
@@ -64,6 +69,7 @@ for CONTAINER in $CONTAINERS
 do
 	build_container $CONTAINER
 done
+
 
 echo -e "\n${GREEN}ALL CONTAINERS BUILT${NC}"
 
@@ -76,6 +82,7 @@ do
 	deploy $SERVICE
 done
 
+
 kubectl apply -f srcs/deployments/ingress_setup.yaml > /dev/null
 
 echo -e "\n${GREEN}ALL SERVICES DEPLOYED${NC}\n"
@@ -83,6 +90,9 @@ echo -e "\n${GREEN}ALL SERVICES DEPLOYED${NC}\n"
 kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql -u root -e 'CREATE DATABASE wordpress;'
 kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/WordPress/files/wordpress-tmp.sql
 
-rm -rf srcs/wordpress/files/wordpress-tmp.sql
+rm -f srcs/wordpress/files/wordpress-tmp.sql
+rm -f srcs/telegraf/telegraf-tmp.conf
+rm -f srcs/nginx/files/index-tmp.html
+rm -f srcs/deployments/telegraf-tmp_setup.yaml
 
 minikube service list
