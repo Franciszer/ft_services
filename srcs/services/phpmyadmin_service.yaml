@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    nodePort: 5000
+    name: http
+    protocol: TCP
+  selector:
+    app: phpmyadmin

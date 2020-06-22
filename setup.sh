@@ -88,7 +88,7 @@ kubectl apply -f srcs/deployments/ingress_setup.yaml > /dev/null
 echo -e "\n${GREEN}ALL SERVICES DEPLOYED${NC}\n"
 
 kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql -u root -e 'CREATE DATABASE wordpress;'
-kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/WordPress/files/wordpress-tmp.sql
+kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/WordPress/files/wordpress.sql
 
 rm -f srcs/wordpress/files/wordpress-tmp.sql
 rm -f srcs/telegraf/telegraf-tmp.conf
