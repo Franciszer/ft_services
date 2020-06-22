@@ -15,3 +15,4 @@ OPTIONAL:
 	- WRITE A PRETTY HOMEPAGE IN REACT
 
 kubectl exec -it $(kubectl get pods | grep mysql | cut -d" " -f1) -- /bin/sh -c "kill 1"
+kubectl exec $(kubectl get pods | grep ftps | cut -d" " -f1) -c ftps_alpine /sbin/killall5
