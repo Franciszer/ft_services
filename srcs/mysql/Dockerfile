@@ -1,9 +1,8 @@
 FROM alpine:latest
 
-RUN apk update && \
-	apk add mysql mysql-client && \
-	addgroup mysql mysql && \
-	rm -rf /var/cache/apk/*
+RUN apk update
+RUN apk add mysql mysql-client
+RUN rm -rf /var/cache/apk/*
 
 COPY scripts/start.sh /bin/start.sh
 COPY files/my.cnf /etc/mysql/my.cnf

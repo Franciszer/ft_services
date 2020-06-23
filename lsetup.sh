@@ -67,8 +67,8 @@ cp srcs/ftps/scripts/start.sh srcs/ftps/scripts/start-tmp.sh
 sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/ftps/scripts/start-tmp.sh
 cp srcs/nginx/files/index.html srcs/nginx/files/index-tmp.html
 sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/nginx/files/index-tmp.html
-# cp srcs/deployments/telegraf_setup.yaml srcs/deployments/telegraf-tmp_setup.yaml
-# sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/deployments/telegraf-tmp_setup.yaml
+cp srcs/deployments/telegraf_setup.yaml srcs/deployments/telegraf-tmp_setup.yaml
+sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/deployments/telegraf-tmp_setup.yaml
 cp srcs/telegraf/telegraf.conf srcs/telegraf/telegraf-tmp.conf
 sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/telegraf/telegraf-tmp.conf
 sed -i "s/USER_TELEGRAF/telegraf/g" srcs/telegraf/telegraf-tmp.conf
@@ -95,7 +95,7 @@ echo -e "\n${GREEN}ALL SERVICES CREATED${NC}\n"
 
 # SERVICES DEPLOYMENTS
 
-echo -e "\n${YELLOW}____CREATING DEPLOYMENTS____\n${NC}"
+echo -e "${YELLOW}____CREATING DEPLOYMENTS____\n${NC}"
 
 for APP in $APPLIST
 do
@@ -107,11 +107,11 @@ kubectl apply -f srcs/deployments/ingress.yaml > /dev/null
 echo -e "\n${GREEN}ALL DEPLOYMENTS CREATED${NC}\n"
 
 kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql -u root -e 'CREATE DATABASE wordpress;'
-kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/wordpress/files/wordpress-tmp.sql
+kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/wordpress/files/wordpress-tmp.sql > /dev/null 2>&1
 
 rm -f srcs/wordpress/files/wordpress-tmp.sql
 rm -f srcs/telegraf/telegraf-tmp.conf
 rm -f srcs/nginx/files/index-tmp.html
-# rm -f srcs/deployments/telegraf-tmp_setup.yaml
+rm -f srcs/ftps/scripts/start-tmp.sh
 
 minikube service list

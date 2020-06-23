@@ -21,10 +21,4 @@ spec:
           value: admin
         - name: SSH_PASSWORD
           value: admin
-        ports:
-        - containerPort: 80
-          name: http
-        - containerPort: 443
-          name: https
-        - containerPort: 4000
-          name: ssh
+
