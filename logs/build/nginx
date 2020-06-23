@@ -1,0 +1,112 @@
+Sending build context to Docker daemon  11.26kB
+Step 1/20 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/20 : RUN apk update && apk add nginx
+ ---> Running in f2042d368227
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+v3.12.0-86-g64c1a9607a [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.0-89-g636a7dc328 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12736 distinct packages available
+(1/2) Installing pcre (8.44-r0)
+(2/2) Installing nginx (1.18.0-r0)
+Executing nginx-1.18.0-r0.pre-install
+Executing busybox-1.31.1-r16.trigger
+OK: 7 MiB in 16 packages
+Removing intermediate container f2042d368227
+ ---> 39eec6ec61bb
+Step 3/20 : RUN apk add --no-cache --upgrade bash
+ ---> Running in e4c8dd160ac7
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/8) Upgrading musl (1.1.24-r8 -> 1.1.24-r9)
+(2/8) Upgrading busybox (1.31.1-r16 -> 1.31.1-r19)
+Executing busybox-1.31.1-r19.post-upgrade
+(3/8) Upgrading ca-certificates-bundle (20191127-r2 -> 20191127-r4)
+(4/8) Upgrading ssl_client (1.31.1-r16 -> 1.31.1-r19)
+(5/8) Installing ncurses-terminfo-base (6.2_p20200523-r0)
+(6/8) Installing ncurses-libs (6.2_p20200523-r0)
+(7/8) Installing readline (8.0.4-r0)
+(8/8) Installing bash (5.0.17-r0)
+Executing bash-5.0.17-r0.post-install
+Executing busybox-1.31.1-r19.trigger
+OK: 9 MiB in 20 packages
+Removing intermediate container e4c8dd160ac7
+ ---> b6a6c7e79f6f
+Step 4/20 : RUN apk add openssl && mkdir -p var/run/nginx
+ ---> Running in 4a4427322a4e
+(1/1) Installing openssl (1.1.1g-r0)
+Executing busybox-1.31.1-r19.trigger
+OK: 10 MiB in 21 packages
+Removing intermediate container 4a4427322a4e
+ ---> 9e054bce95c1
+Step 5/20 : RUN apk add openssl openssh
+ ---> Running in 30dea58be53e
+(1/7) Installing openssh-keygen (8.3_p1-r0)
+(2/7) Installing libedit (20191231.3.1-r0)
+(3/7) Installing openssh-client (8.3_p1-r0)
+(4/7) Installing openssh-sftp-server (8.3_p1-r0)
+(5/7) Installing openssh-server-common (8.3_p1-r0)
+(6/7) Installing openssh-server (8.3_p1-r0)
+(7/7) Installing openssh (8.3_p1-r0)
+Executing busybox-1.31.1-r19.trigger
+OK: 15 MiB in 28 packages
+Removing intermediate container 30dea58be53e
+ ---> 2250cb5846ee
+Step 6/20 : RUN rm -rf /var/cache/apk/*
+ ---> Running in d335e3410f67
+Removing intermediate container d335e3410f67
+ ---> c36304d51f0e
+Step 7/20 : RUN adduser -D -g 'user' user
+ ---> Running in 5d4aaaf08bb8
+Removing intermediate container 5d4aaaf08bb8
+ ---> e927d1c80fd1
+Step 8/20 : RUN mkdir /www && chown -R user:user /var/lib/nginx
+ ---> Running in 3f0fbaaa07ae
+Removing intermediate container 3f0fbaaa07ae
+ ---> 1bc2ae779592
+Step 9/20 : RUN chown -R user:user /www
+ ---> Running in c72567d08e0c
+Removing intermediate container c72567d08e0c
+ ---> 219983d0ffb9
+Step 10/20 : RUN mkdir /etc/nginx/ssl && openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out /etc/nginx/ssl/www.pem -keyout /etc/nginx/ssl/www.key -subj "/C=FR/ST=Paris/L=Paris/O=42 School/OU=frthierr/CN=ft_services"
+ ---> Running in 5a7c9a9979a4
+[91mGenerating a RSA private key
+[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m..[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m+[0m[91m+[0m[91m+[0m[91m+
+[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m+[0m[91m+[0m[91m+[0m[91m+
+[0m[91mwriting new private key to '/etc/nginx/ssl/www.key'
+-----
+[0mRemoving intermediate container 5a7c9a9979a4
+ ---> 3f2d0255523c
+Step 11/20 : RUN rm /etc/nginx/nginx.conf
+ ---> Running in 0841592c9926
+Removing intermediate container 0841592c9926
+ ---> e0a61e3fb5b0
+Step 12/20 : COPY srcs/nginx.conf /etc/nginx/nginx.conf
+ ---> c0700633e517
+Step 13/20 : COPY srcs/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key
+ ---> 6b915be1472e
+Step 14/20 : COPY srcs/sshd_config /etc/ssh/
+ ---> 340dbaa327eb
+Step 15/20 : COPY srcs/index-tmp.html /www/index.html
+ ---> 608d1d8ab0dd
+Step 16/20 : COPY srcs/setup.sh .
+ ---> db7f577a4020
+Step 17/20 : RUN chmod +x setup.sh
+ ---> Running in f4b7a9cd5b28
+Removing intermediate container f4b7a9cd5b28
+ ---> 4c7e05a4f6bd
+Step 18/20 : RUN chmod 700 /etc/ssh/ssh_host_rsa_key
+ ---> Running in df6f6789ab84
+Removing intermediate container df6f6789ab84
+ ---> f4ced152d6d9
+Step 19/20 : EXPOSE 4000 80 443
+ ---> Running in 3ff7b9171c0a
+Removing intermediate container 3ff7b9171c0a
+ ---> 579979165cdc
+Step 20/20 : CMD ./setup.sh
+ ---> Running in 21a852867536
+Removing intermediate container 21a852867536
+ ---> 9386c6aa0342
+Successfully built 9386c6aa0342
+Successfully tagged nginx_alpine:latest

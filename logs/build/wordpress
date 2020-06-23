@@ -1,30 +1,30 @@
-Sending build context to Docker daemon  1.184MB
+Sending build context to Docker daemon   4.11MB
 Step 1/14 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/14 : ENV TIMEZONE Europe/Paris
- ---> Running in 0fb0149d1967
-Removing intermediate container 0fb0149d1967
- ---> c837497251a1
+ ---> Running in a06e327eac4f
+Removing intermediate container a06e327eac4f
+ ---> 3c84170b45ad
 Step 3/14 : ENV VERSION_WORDPRESS 4.9.6
- ---> Running in 9f485d5273b8
-Removing intermediate container 9f485d5273b8
- ---> 477967f73531
-Step 4/14 : ENV APACHE_SERVER_PATH /var/www/localhost/htdocs
- ---> Running in 0e1e34907812
-Removing intermediate container 0e1e34907812
- ---> 355ca1eefcd2
+ ---> Running in 2935aa5823b0
+Removing intermediate container 2935aa5823b0
+ ---> 21b2f4b86466
+Step 4/14 : ENV SERVER_PATH /var/www/localhost/htdocs
+ ---> Running in 92e016724b5b
+Removing intermediate container 92e016724b5b
+ ---> cdb7e1662396
 Step 5/14 : RUN apk add --no-cache --virtual .build-deps unzip
- ---> Running in 0757b6f7191f
+ ---> Running in 7889ddce59dc
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 (1/2) Installing unzip (6.0-r7)
-(2/2) Installing .build-deps (20200616.145756)
+(2/2) Installing .build-deps (20200623.125705)
 Executing busybox-1.31.1-r16.trigger
 OK: 6 MiB in 16 packages
-Removing intermediate container 0757b6f7191f
- ---> dd876382f490
+Removing intermediate container 7889ddce59dc
+ ---> 17c66a2aa05e
 Step 6/14 : RUN apk add --no-cache apache2 php7 php7-apache2 php7-openssl php7-xml php7-pdo php7-mcrypt php7-session php7-mysqli php7-zlib su-exec
- ---> Running in 9937efac8e60
+ ---> Running in c912517b09a6
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 (1/25) Installing libuuid (2.35.2-r0)
@@ -55,41 +55,41 @@ Executing apache2-2.4.43-r0.pre-install
 (25/25) Installing su-exec (0.2-r1)
 Executing busybox-1.31.1-r16.trigger
 OK: 41 MiB in 41 packages
-Removing intermediate container 9937efac8e60
- ---> b1bc91acb5d3
+Removing intermediate container c912517b09a6
+ ---> 91355ca06c35
 Step 7/14 : RUN mkdir -p /run/apache2 /run/httpd
- ---> Running in d266595c8e4d
-Removing intermediate container d266595c8e4d
- ---> 892dc0921799
+ ---> Running in 6e9cfda62205
+Removing intermediate container 6e9cfda62205
+ ---> 339469b7dddd
 Step 8/14 : WORKDIR /scripts
- ---> Running in 46e716dbd0ce
-Removing intermediate container 46e716dbd0ce
- ---> 57606a4c2072
+ ---> Running in 8138dffe97e8
+Removing intermediate container 8138dffe97e8
+ ---> c2d55d2d6afd
 Step 9/14 : ADD https://wordpress.org/wordpress-${VERSION_WORDPRESS}.zip ./
 
 
- ---> 427fc6c57fef
-Step 10/14 : RUN unzip -q wordpress-${VERSION_WORDPRESS}.zip -d ./ &&         rm -rf ${APACHE_SERVER_PATH} &&         mv wordpress/ ${APACHE_SERVER_PATH} &&         rm /scripts/wordpress-${VERSION_WORDPRESS}.zip             ${APACHE_SERVER_PATH}/wp-config-sample.php             ${APACHE_SERVER_PATH}/license.txt             ${APACHE_SERVER_PATH}/readme.html &&         chown -R apache:apache ${APACHE_SERVER_PATH} &&         apk del .build-deps
- ---> Running in b42edc56687b
+ ---> d14a4e71fa26
+Step 10/14 : RUN unzip -q wordpress-${VERSION_WORDPRESS}.zip -d ./ &&         rm -rf ${SERVER_PATH} &&         mv wordpress/ ${SERVER_PATH} &&         rm /scripts/wordpress-${VERSION_WORDPRESS}.zip             ${SERVER_PATH}/wp-config-sample.php             ${SERVER_PATH}/license.txt             ${SERVER_PATH}/readme.html &&         chown -R apache:apache ${SERVER_PATH} &&         apk del .build-deps
+ ---> Running in c4223b6ffbb6
 [91mWARNING: Ignoring APKINDEX.2c4ac24e.tar.gz: No such file or directory
 WARNING: Ignoring APKINDEX.40a3604f.tar.gz: No such file or directory
-[0m(1/2) Purging .build-deps (20200616.145756)
+[0m(1/2) Purging .build-deps (20200623.125705)
 (2/2) Purging unzip (6.0-r7)
 Executing busybox-1.31.1-r16.trigger
 OK: 40 MiB in 39 packages
-Removing intermediate container b42edc56687b
- ---> 7d6ad259ab7d
+Removing intermediate container c4223b6ffbb6
+ ---> 2d155a24de26
 Step 11/14 : COPY scripts/start.sh start.sh
- ---> 9506e15015f0
-Step 12/14 : COPY files/wp-config.php ${APACHE_SERVER_PATH}/wp-config.php
- ---> 2aaf66fb0163
+ ---> a1b8e8ad2332
+Step 12/14 : COPY files/wp-config.php ${SERVER_PATH}/wp-config.php
+ ---> 623852145e6e
 Step 13/14 : EXPOSE 80
- ---> Running in c54281d471be
-Removing intermediate container c54281d471be
- ---> 889d4a9e8bfa
+ ---> Running in 8e699c480fd1
+Removing intermediate container 8e699c480fd1
+ ---> b8dcb8755329
 Step 14/14 : ENTRYPOINT [ "./start.sh" ]
- ---> Running in 0517baf2c21a
-Removing intermediate container 0517baf2c21a
- ---> 729cc60ebee9
-Successfully built 729cc60ebee9
+ ---> Running in 61713ecf8312
+Removing intermediate container 61713ecf8312
+ ---> 4d1599ff2ad8
+Successfully built 4d1599ff2ad8
 Successfully tagged wordpress_alpine:latest

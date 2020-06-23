@@ -11,4 +11,4 @@ mkdir -p /ftps/$FTP_USER
 adduser -D $FTP_USER
 echo "$FTP_USER:$FTP_PASSWORD" | chpasswd
 
-/usr/sbin/pure-ftpd -j -Y 1 -p 21000:21000 -P "192.168.99.253"
+/usr/sbin/pure-ftpd -j -Y 1 -p 21000:21000 -P "172.17.0.3"

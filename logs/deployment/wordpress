@@ -1,0 +1,1 @@
+deployment.apps/wordpress created

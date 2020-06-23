@@ -2,30 +2,32 @@ Sending build context to Docker daemon  4.608kB
 Step 1/4 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/4 : RUN apk upgrade &&     apk update
- ---> Running in 99ce851d4f96
+ ---> Running in 44613ec91b69
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-(1/4) Upgrading busybox (1.31.1-r16 -> 1.31.1-r19)
+(1/6) Upgrading musl (1.1.24-r8 -> 1.1.24-r9)
+(2/6) Upgrading busybox (1.31.1-r16 -> 1.31.1-r19)
 Executing busybox-1.31.1-r19.post-upgrade
-(2/4) Upgrading alpine-baselayout (3.2.0-r6 -> 3.2.0-r7)
+(3/6) Upgrading alpine-baselayout (3.2.0-r6 -> 3.2.0-r7)
 Executing alpine-baselayout-3.2.0-r7.pre-upgrade
 Executing alpine-baselayout-3.2.0-r7.post-upgrade
-(3/4) Upgrading ca-certificates-bundle (20191127-r2 -> 20191127-r3)
-(4/4) Upgrading ssl_client (1.31.1-r16 -> 1.31.1-r19)
+(4/6) Upgrading ca-certificates-bundle (20191127-r2 -> 20191127-r4)
+(5/6) Upgrading ssl_client (1.31.1-r16 -> 1.31.1-r19)
+(6/6) Upgrading musl-utils (1.1.24-r8 -> 1.1.24-r9)
 Executing busybox-1.31.1-r19.trigger
 OK: 6 MiB in 14 packages
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.0-74-gb8f92cf12a [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
-v3.12.0-71-g7423f77055 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+v3.12.0-86-g64c1a9607a [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.0-89-g636a7dc328 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
 OK: 12730 distinct packages available
-Removing intermediate container 99ce851d4f96
- ---> 4a9b75c6ddb7
+Removing intermediate container 44613ec91b69
+ ---> 4344986b355a
 Step 3/4 : COPY scripts/start-tmp.sh /bin/start-tmp.sh
- ---> de02aa5777de
+ ---> c63ed2c88cfb
 Step 4/4 : ENTRYPOINT ["/bin/start-tmp.sh"]
- ---> Running in e1b3c975b749
-Removing intermediate container e1b3c975b749
- ---> 69124ea0f214
-Successfully built 69124ea0f214
+ ---> Running in 864e797bb9b2
+Removing intermediate container 864e797bb9b2
+ ---> b481b3fa77f9
+Successfully built b481b3fa77f9
 Successfully tagged ftps_alpine:latest

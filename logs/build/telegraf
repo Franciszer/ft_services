@@ -1,0 +1,31 @@
+Sending build context to Docker daemon  6.144kB
+Step 1/7 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/7 : RUN mkdir /etc/telegraf && wget https://dl.influxdata.com/telegraf/releases/telegraf-1.13.3-static_linux_amd64.tar.gz && tar -C . -xzf telegraf-1.13.3-static_linux_amd64.tar.gz && chmod +x telegraf/* && cp telegraf/telegraf /usr/bin/ && rm -rf *.tar.gz* telegraf/ && rm -rf /var/cache/apk/*
+ ---> Running in a4428df8a118
+[91mConnecting to dl.influxdata.com (13.227.223.64:443)
+[0m[91msaving to 'telegraf-1.13.3-static_linux_amd64.tar.gz'
+[0m[91mtelegraf-1.13.3-stat   0% |                                | 68239  0:04:52 ETA
+[0m[91mtelegraf-1.13.3-stat  57% |******************              | 11.0M  0:00:01 ETA
+[0m[91mtelegraf-1.13.3-stat 100% |********************************| 19.0M  0:00:00 ETA
+'telegraf-1.13.3-static_linux_amd64.tar.gz' saved
+[0mRemoving intermediate container a4428df8a118
+ ---> 20c6822c8c0a
+Step 3/7 : COPY telegraf-tmp.conf /etc/telegraf/telegraf.conf
+ ---> 42580af41866
+Step 4/7 : COPY setup.sh .
+ ---> 382750b37c6f
+Step 5/7 : RUN chmod +x setup.sh
+ ---> Running in 8b9c210daa19
+Removing intermediate container 8b9c210daa19
+ ---> c9953bffdd8e
+Step 6/7 : EXPOSE 4999
+ ---> Running in 7422ebee0f25
+Removing intermediate container 7422ebee0f25
+ ---> 7014079d7a98
+Step 7/7 : CMD ./setup.sh
+ ---> Running in 507f480061ed
+Removing intermediate container 507f480061ed
+ ---> 6a0b87dfe111
+Successfully built 6a0b87dfe111
+Successfully tagged telegraf_alpine:latest

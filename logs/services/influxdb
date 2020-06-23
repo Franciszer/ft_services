@@ -1,0 +1,2 @@
+service/influxdb created
+persistentvolumeclaim/influxdb-pv-claim created

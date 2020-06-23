@@ -75,8 +75,7 @@ mkdir ./logs/services > /dev/null 2>&1
 # SETTING UP MINIKUBE
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
-	minikube start --cpus=2 --memory 4000 --vm-driver=virtualbox --extra-config=apiserver.service-node-port-range=1-35000
-	minikube addons enable metrics-server
+	minikube start --vm-driver=docker --extra-config=apiserver.service-node-port-range=1-35000	minikube addons enable metrics-server
 	minikube addons enable ingress
 	minikube addons enable dashboard
 fi
@@ -86,17 +85,17 @@ fi
 MINIKUBE_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
 eval $(minikube docker-env)
 
-cp srcs/wordpress/files/wordpress.sql srcs/wordpress/files/wordpress-tmp.sql
-sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/wordpress/files/wordpress-tmp.sql
-cp srcs/ftps/scripts/start.sh srcs/ftps/scripts/start-tmp.sh
-sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/ftps/scripts/start-tmp.sh
-cp srcs/nginx/srcs/index.html srcs/nginx/srcs/index-tmp.html
-sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/nginx/srcs/index-tmp.html
-# cp srcs/deployments/telegraf_setup.yaml srcs/deployments/telegraf-tmp_setup.yaml
-# sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/deployments/telegraf-tmp_setup.yaml
-cp srcs/telegraf/telegraf.conf srcs/telegraf/telegraf-tmp.conf
-sed -i '' "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/telegraf/telegraf-tmp.conf
-sed -i '' "s/USER_TELEGRAF/telegraf/g" srcs/telegraf/telegraf-tmp.conf
+cp srcs/wordpress/files/wordpress.sql srcs/wordpress/files/wordpress-tmp.sql > /dev/null 2>&1
+sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/wordpress/files/wordpress-tmp.sql > /dev/null 2>&1
+cp srcs/ftps/scripts/start.sh srcs/ftps/scripts/start-tmp.sh > /dev/null 2>&1
+sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/ftps/scripts/start-tmp.sh > /dev/null 2>&1
+cp srcs/nginx/srcs/index.html srcs/nginx/srcs/index-tmp.html > /dev/null 2>&1
+sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/nginx/srcs/index-tmp.html > /dev/null 2>&1
+cp srcs/deployments/telegraf_setup.yaml srcs/deployments/telegraf-tmp_setup.yaml > /dev/null 2>&1
+sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/deployments/telegraf-tmp_setup.yaml > /dev/null 2>&1
+cp srcs/telegraf/telegraf.conf srcs/telegraf/telegraf-tmp.conf > /dev/null 2>&1
+sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/telegraf/telegraf-tmp.conf > /dev/null 2>&1
+sed -i "s/USER_TELEGRAF/telegraf/g" srcs/telegraf/telegraf-tmp.conf > /dev/null 2>&1
 
 # BUILDING CONTAINERS
 echo -e "\n${YELLOW}____BUILDING CONTAINERS____${NC}\n"
