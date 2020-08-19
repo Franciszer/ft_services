@@ -2,31 +2,31 @@ Sending build context to Docker daemon  3.584kB
 Step 1/6 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/6 : RUN apk update && apk add influxdb
- ---> Running in f6ef235fb75c
+ ---> Running in a1eba4fc3a6c
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.0-86-g64c1a9607a [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
-v3.12.0-89-g636a7dc328 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
-OK: 12736 distinct packages available
+v3.12.0-254-g188bfebd7f [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.0-255-g92cbb6be98 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12746 distinct packages available
 (1/1) Installing influxdb (1.8.0-r1)
 Executing influxdb-1.8.0-r1.pre-install
 Executing busybox-1.31.1-r16.trigger
 OK: 268 MiB in 15 packages
-Removing intermediate container f6ef235fb75c
- ---> 69ca4aa30948
+Removing intermediate container a1eba4fc3a6c
+ ---> 1c5ff7f42b3b
 Step 3/6 : COPY srcs/start.sh .
- ---> aca592a15ee7
+ ---> 5b35fb352590
 Step 4/6 : RUN chmod +x start.sh
- ---> Running in d7245e3542fc
-Removing intermediate container d7245e3542fc
- ---> 14058b311d6a
+ ---> Running in 40db2d885b0a
+Removing intermediate container 40db2d885b0a
+ ---> bf0468f1b0cb
 Step 5/6 : EXPOSE 8086
- ---> Running in 3f25d3bbed8d
-Removing intermediate container 3f25d3bbed8d
- ---> a397abe87e16
+ ---> Running in bc51133ba293
+Removing intermediate container bc51133ba293
+ ---> ec253fce07c7
 Step 6/6 : CMD ./start.sh
- ---> Running in 002df51dc4e0
-Removing intermediate container 002df51dc4e0
- ---> 7eec638db603
-Successfully built 7eec638db603
+ ---> Running in 8506ae031227
+Removing intermediate container 8506ae031227
+ ---> 17f28b7b2760
+Successfully built 17f28b7b2760
 Successfully tagged influxdb_alpine:latest

@@ -1,2 +1,1 @@
-configmap/grafana-config created
-service/grafana created
+error: error validating "srcs/services/grafana_service.yaml": error validating data: ValidationError(Service.spec.ports[0]): unknown field "protcol" in io.k8s.api.core.v1.ServicePort; if you choose to ignore these errors, turn validation off with --validate=false

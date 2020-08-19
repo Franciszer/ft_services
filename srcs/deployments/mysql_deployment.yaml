@@ -10,12 +10,14 @@ spec:
   selector:
     matchLabels:
       app: mysql
+      tier: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: mysql
+        tier: mysql
     spec:
       restartPolicy: Always
       containers:

@@ -2,12 +2,12 @@ Sending build context to Docker daemon  697.3kB
 Step 1/13 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/13 : RUN apk update && apk add --no-cache --upgrade bash && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-compat
- ---> Running in 8f643f8c6894
+ ---> Running in 8c66c83229e4
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.0-86-g64c1a9607a [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
-v3.12.0-89-g636a7dc328 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
-OK: 12736 distinct packages available
+v3.12.0-254-g188bfebd7f [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.0-255-g92cbb6be98 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12746 distinct packages available
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 (1/8) Upgrading musl (1.1.24-r8 -> 1.1.24-r9)
@@ -25,24 +25,22 @@ OK: 8 MiB in 18 packages
 fetch http://dl-cdn.alpinelinux.org/alpine/edge/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-(1/1) Installing libc6-compat (1.1.24-r9)
+(1/2) Upgrading musl (1.1.24-r9 -> 1.2.1-r0)
+(2/2) Installing libc6-compat (1.2.1-r0)
 OK: 8 MiB in 19 packages
-Removing intermediate container 8f643f8c6894
- ---> 8a2eb5010434
+Removing intermediate container 8c66c83229e4
+ ---> 4fcb6ee4087a
 Step 3/13 : RUN wget https://dl.grafana.com/oss/release/grafana-7.0.3.linux-amd64.tar.gz
- ---> Running in 31b14eb12918
+ ---> Running in 8034763189d9
 [91mConnecting to dl.grafana.com (151.101.122.217:443)
 [0m[91msaving to 'grafana-7.0.3.linux-amd64.tar.gz'
-[0m[91mgrafana-7.0.3.linux-  15% |*****                           | 7712k  0:00:05 ETA
-[0m[91mgrafana-7.0.3.linux-  29% |*********                       | 13.9M  0:00:04 ETA
-[0m[91mgrafana-7.0.3.linux-  77% |************************        | 36.5M  0:00:00 ETA
-[0m[91mgrafana-7.0.3.linux-  87% |****************************    | 41.4M  0:00:00 ETA
+[0m[91mgrafana-7.0.3.linux-  22% |*******                         | 10.8M  0:00:03 ETA
 [0m[91mgrafana-7.0.3.linux- 100% |********************************| 47.1M  0:00:00 ETA
 'grafana-7.0.3.linux-amd64.tar.gz' saved
-[0mRemoving intermediate container 31b14eb12918
- ---> d9aec496d60b
+[0mRemoving intermediate container 8034763189d9
+ ---> a6a9a983264e
 Step 4/13 : RUN tar -xzvf grafana-7.0.3.linux-amd64.tar.gz
- ---> Running in 2136cadd1685
+ ---> Running in d53236928f18
 grafana-7.0.3/LICENSE
 grafana-7.0.3/README.md
 grafana-7.0.3/NOTICE.md
@@ -2735,33 +2733,33 @@ grafana-7.0.3/scripts/tag_release.sh
 grafana-7.0.3/scripts/trigger_docker_build.sh
 grafana-7.0.3/scripts/trigger_grafana_packer.sh
 grafana-7.0.3/scripts/trigger_windows_build.sh
-Removing intermediate container 2136cadd1685
- ---> 09f010d7d496
+Removing intermediate container d53236928f18
+ ---> 44cfae9c4ecd
 Step 5/13 : RUN rm -rf /var/cache/apk/*
- ---> Running in 603923807b9e
-Removing intermediate container 603923807b9e
- ---> b316a31a1ee3
+ ---> Running in 19c6fc6498ef
+Removing intermediate container 19c6fc6498ef
+ ---> f6a6a6fb4e0d
 Step 6/13 : COPY ./srcs/grafana.db ./grafana-7.0.3/data/
- ---> 98512caa8090
+ ---> b902da2d4aae
 Step 7/13 : COPY ./srcs/datasources.yaml ./grafana-7.0.3/conf/provisioning/datasources/
- ---> c286e9ca6281
+ ---> f669dd9d43ae
 Step 8/13 : COPY ./srcs/dashboard.yaml ./grafana-7.0.3/conf/provisioning/dashboards/
- ---> 6e0f0386a4bb
+ ---> 504244517ebb
 Step 9/13 : COPY ./srcs/*.json . ./grafana-7.0.3/conf/provisioning/dashboards/
- ---> e581fb502a48
+ ---> f667dd7ef4bb
 Step 10/13 : COPY srcs/start.sh .
- ---> 3f135edc4d7e
+ ---> 7be28bbbac72
 Step 11/13 : RUN chmod +x start.sh
- ---> Running in 9ce4d01eec31
-Removing intermediate container 9ce4d01eec31
- ---> 42ee4e3c6bb8
+ ---> Running in a9acf45427a7
+Removing intermediate container a9acf45427a7
+ ---> 9dbb8cd6dba6
 Step 12/13 : EXPOSE 3000
- ---> Running in 61d9f9574fdc
-Removing intermediate container 61d9f9574fdc
- ---> 0403132a8e2d
+ ---> Running in e3b8d1abad23
+Removing intermediate container e3b8d1abad23
+ ---> 21927bb4070b
 Step 13/13 : CMD ./start.sh
- ---> Running in 83d9500f241e
-Removing intermediate container 83d9500f241e
- ---> 0eb1ef693e94
-Successfully built 0eb1ef693e94
+ ---> Running in a67bf80a73fe
+Removing intermediate container a67bf80a73fe
+ ---> 1348367a51f3
+Successfully built 1348367a51f3
 Successfully tagged grafana_alpine:latest

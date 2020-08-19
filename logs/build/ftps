@@ -2,7 +2,7 @@ Sending build context to Docker daemon  4.608kB
 Step 1/4 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/4 : RUN apk upgrade &&     apk update
- ---> Running in 44613ec91b69
+ ---> Running in 13e8923f6ba6
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 (1/6) Upgrading musl (1.1.24-r8 -> 1.1.24-r9)
@@ -18,16 +18,16 @@ Executing busybox-1.31.1-r19.trigger
 OK: 6 MiB in 14 packages
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.0-86-g64c1a9607a [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
-v3.12.0-89-g636a7dc328 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
-OK: 12730 distinct packages available
-Removing intermediate container 44613ec91b69
- ---> 4344986b355a
+v3.12.0-254-g188bfebd7f [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.0-255-g92cbb6be98 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12740 distinct packages available
+Removing intermediate container 13e8923f6ba6
+ ---> 3fdf4f82738d
 Step 3/4 : COPY scripts/start-tmp.sh /bin/start-tmp.sh
- ---> c63ed2c88cfb
+ ---> ea1cc8f5c407
 Step 4/4 : ENTRYPOINT ["/bin/start-tmp.sh"]
- ---> Running in 864e797bb9b2
-Removing intermediate container 864e797bb9b2
- ---> b481b3fa77f9
-Successfully built b481b3fa77f9
+ ---> Running in 55500d41eadb
+Removing intermediate container 55500d41eadb
+ ---> f51cfd3ea886
+Successfully built f51cfd3ea886
 Successfully tagged ftps_alpine:latest

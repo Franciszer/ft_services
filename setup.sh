@@ -1,6 +1,7 @@
  #!/bin/sh
 
 APPLIST="mysql nginx phpmyadmin wordpress ftps influxdb grafana telegraf"
+DEPLOY_LIST="mysql nginx phpmyadmin wordpress influxdb grafana telegraf"
 
 # COLORS
 GREEN='\033[0;32m'
@@ -45,7 +46,6 @@ then
 	do
 		clean_app $APP
 	done
-	kubectl delete -f srcs/deployments/ingress.yaml > /dev/null 2>&1
 	echo -e "\r\033[1A                                                             "
 	echo -e "\r\033[1A${GREEN}✓	Clean complete !${NC}"
 	exit
@@ -76,14 +76,14 @@ mkdir ./logs/services > /dev/null 2>&1
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
 	minikube start --vm-driver=docker --extra-config=apiserver.service-node-port-range=1-35000	minikube addons enable metrics-server
-	minikube addons enable ingress
+	kubectl apply -f metallb_setup.yaml
 	minikube addons enable dashboard
 fi
 
 # SET ENV VARIABLE
-# MINIKUBE_IP=$(minikube ip)
 MINIKUBE_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
 eval $(minikube docker-env)
+FTPSIP=172.17.0.21
 
 cp srcs/wordpress/files/wordpress.sql srcs/wordpress/files/wordpress-tmp.sql > /dev/null 2>&1
 sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/wordpress/files/wordpress-tmp.sql > /dev/null 2>&1
@@ -96,6 +96,9 @@ sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/deployments/telegraf-tmp_setup.yaml >
 cp srcs/telegraf/telegraf.conf srcs/telegraf/telegraf-tmp.conf > /dev/null 2>&1
 sed -i "s/MINIKUBE_IP/$MINIKUBE_IP/g" srcs/telegraf/telegraf-tmp.conf > /dev/null 2>&1
 sed -i "s/USER_TELEGRAF/telegraf/g" srcs/telegraf/telegraf-tmp.conf > /dev/null 2>&1
+
+kubectl apply -f srcs/metallb/metallb_setup.yaml
+kubectl apply -f srcs/metallb/metallb_configmap.yaml
 
 # BUILDING CONTAINERS
 echo -e "\n${YELLOW}____BUILDING CONTAINERS____${NC}\n"
@@ -121,12 +124,12 @@ echo -e "\n${GREEN}ALL SERVICES CREATED${NC}\n"
 
 echo -e "\n${YELLOW}____CREATING DEPLOYMENTS____\n${NC}"
 
-for APP in $APPLIST
+for APP in $DEPLOY_LIST
 do
 	deploy $APP
 done
 
-kubectl apply -f srcs/deployments/ingress.yaml > /dev/null
+docker build -t ftps --build-arg IP=${FTPSIP} srcs/ftps
 
 echo -e "\n${GREEN}ALL DEPLOYMENTS CREATED${NC}\n"
 

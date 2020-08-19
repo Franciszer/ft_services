@@ -2,23 +2,22 @@ Sending build context to Docker daemon  5.632kB
 Step 1/9 : FROM alpine:latest
 latest: Pulling from library/alpine
 df20fa9351a1: Pulling fs layer
-df20fa9351a1: Verifying Checksum
 df20fa9351a1: Download complete
 df20fa9351a1: Pull complete
 Digest: sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
 Status: Downloaded newer image for alpine:latest
  ---> a24bb4013296
 Step 2/9 : RUN apk update
- ---> Running in 36d2ac1c2545
+ ---> Running in bf49270bd117
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.0-86-g64c1a9607a [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
-v3.12.0-89-g636a7dc328 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
-OK: 12736 distinct packages available
-Removing intermediate container 36d2ac1c2545
- ---> 43d31a060c12
+v3.12.0-254-g188bfebd7f [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.0-255-g92cbb6be98 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12746 distinct packages available
+Removing intermediate container bf49270bd117
+ ---> 56b9a78fdfc5
 Step 3/9 : RUN apk add mysql mysql-client
- ---> Running in 4ae7a325ef65
+ ---> Running in 2b7304cc3f63
 (1/14) Installing mariadb-common (10.4.13-r0)
 (2/14) Installing libaio (0.3.112-r1)
 (3/14) Installing xz-libs (5.2.5-r0)
@@ -36,27 +35,27 @@ Executing mariadb-10.4.13-r0.pre-install
 (14/14) Installing mysql-client (10.4.13-r0)
 Executing busybox-1.31.1-r16.trigger
 OK: 166 MiB in 28 packages
-Removing intermediate container 4ae7a325ef65
- ---> ecf99b921293
+Removing intermediate container 2b7304cc3f63
+ ---> 9a18838b3f50
 Step 4/9 : RUN rm -rf /var/cache/apk/*
- ---> Running in c179c9530828
-Removing intermediate container c179c9530828
- ---> a6c35d974c33
+ ---> Running in 4cfed3169d89
+Removing intermediate container 4cfed3169d89
+ ---> b500bd981abe
 Step 5/9 : COPY scripts/start.sh /bin/start.sh
- ---> 78fd5b8ae320
+ ---> 19103c0eeae9
 Step 6/9 : COPY files/my.cnf /etc/mysql/my.cnf
- ---> 54d696e77318
+ ---> a14a612dcfde
 Step 7/9 : VOLUME ["/var/lib/mysql"]
- ---> Running in ae756489a9da
-Removing intermediate container ae756489a9da
- ---> c4b2fa3886d9
+ ---> Running in 8855d948ca6f
+Removing intermediate container 8855d948ca6f
+ ---> 177f76834dd2
 Step 8/9 : EXPOSE 3306
- ---> Running in a0f8439a5700
-Removing intermediate container a0f8439a5700
- ---> 944add3134f5
+ ---> Running in 40cd37538614
+Removing intermediate container 40cd37538614
+ ---> f345267db4cb
 Step 9/9 : ENTRYPOINT ["/bin/start.sh"]
- ---> Running in dc87cfc47a3f
-Removing intermediate container dc87cfc47a3f
- ---> 33c935dc0c43
-Successfully built 33c935dc0c43
+ ---> Running in 8956ef77fa05
+Removing intermediate container 8956ef77fa05
+ ---> 31dffc776789
+Successfully built 31dffc776789
 Successfully tagged mysql_alpine:latest

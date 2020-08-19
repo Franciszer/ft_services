@@ -1,52 +1,52 @@
 <?php
-
-$cfg['blowfish_secret'] = '';
-
+/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * List of env variables
+ * phpMyAdmin sample configuration, you can use it as base for
+ * manual configuration. For easier setup you can use setup/
+ *
+ * All directives are explained in documentation in the doc/ folder
+ * or at <http://docs.phpmyadmin.net/>.
+ *
+ * @package PhpMyAdmin
  */
-$vars = array(
-    'PMA_HOST',
-	'PMA_PORT',
-	'PMA_USER',
-	'MYSQL_ROOT_PASSWORD'
-);
 
-/**
- * Stock env variables in tab
+/*
+ * This is needed for cookie based authentication to encrypt password in
+ * cookie
  */
-foreach ($vars as $var) {
-    $env = getenv($var);
-    if (!isset($_ENV[$var]) && $env !== false) {
-        $_ENV[$var] = $env;
-    }
-}
+$cfg['blowfish_secret'] = 'a8b7c6d'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
-/**
- * Only one server
+/*
+ * Servers configuration
  */
-$i = 1;
+$i = 0;
 
+/*
+ * First server
+ */
+$i++;
 /* Authentication type */
-$cfg['Servers'][$i]['auth_type'] = 'cookie';
+//$cfg['Servers'][$i]['verbose'] = 'mysql wampserver';
+//$cfg['Servers'][$i]['auth_type'] = 'cookie';
+//$cfg['Servers'][$i]['auth_type'] = 'config';
+$cfg['Servers'][$i]['user'] = 'root';
+$cfg['Servers'][$i]['password'] = 'root';
 /* Server parameters */
+$cfg['Servers'][$i]['host'] = 'mysql-service';
+//$cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
-$cfg['Servers'][$i]['AllowNoPassword'] = true;
+/* Select mysql if your server does not have mysqli */
+//$cfg['Servers'][$i]['extension'] = 'mysqli';
+$cfg['Servers'][$i]['AllowNoPassword'] = false;
 
-/**
- * Variable definition
+
+
+/*
+ * phpMyAdmin configuration storage settings.
  */
-if (!empty($_ENV['PMA_HOST']))
-	$cfg['Servers'][$i]['host'] = $_ENV['PMA_HOST'];
+ 
+// No warning on  pmadb tables
+$cfg['PmaNoRelation_DisableWarning'] = true;
 
-if (!empty($_ENV['PMA_PORT']))
-	$cfg['Servers'][$i]['port'] = $_ENV['PMA_PORT'];
 
-if (!empty($_ENV['PMA_USER']))
-	$cfg['Servers'][$i]['user'] = $_ENV['PMA_USER'];
-
-if (!empty($_ENV['MYSQL_ROOT_PASSWORD']))
-	$cfg['Servers'][$i]['password'] = $_ENV['MYSQL_ROOT_PASSWORD'];
-
-$cfg['UploadDir'] = '';
-$cfg['SaveDir'] = '';
+?>
