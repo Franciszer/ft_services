@@ -1,7 +1,0 @@
-secret/telegraf-secrets created
-configmap/telegraf-config created
-service/telegraf created
-clusterrole.rbac.authorization.k8s.io/influx:cluster:viewer created
-clusterrole.rbac.authorization.k8s.io/influx:telegraf created
-clusterrolebinding.rbac.authorization.k8s.io/influx:telegraf:viewer created
-serviceaccount/telegraf-account created
