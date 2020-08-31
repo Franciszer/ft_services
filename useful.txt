@@ -1,0 +1,21 @@
+Wordpress:
+	root:password
+DATABASE:
+	root:password
+FTPS:
+	admin:password
+INFLUXDB:
+	admin:admin
+	user:password
+
+ssh admin@$(minikube ip) -p 4000
+kubectl exec -it $(kubectl get pods | grep mysql | cut -d" " -f1) -- /bin/sh -c "kill 1"
+
+TODOLIST:
+	-mysql
+	-wordpress
+	-ftps
+	-nginx
+	-phpmyadmin
+	-influxdb
+	-grafana
