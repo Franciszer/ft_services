@@ -30,6 +30,6 @@ spec:
             command:
             - /bin/ash
             - -c
-            - 'ps aux | egrep [t]elegraf'
+            - 'ps | grep [t]elegraf'
           initialDelaySeconds: 10
           periodSeconds: 5

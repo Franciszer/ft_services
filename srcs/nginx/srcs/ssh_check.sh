@@ -1,5 +1,6 @@
+#check if nginx and sshd are running
 while true;do
-        ssh_running=$(pgrep -f sshd:)
-	[[ "$(echo "$ssh_running")" == '' ]] && kill $(pgrep -f "nginx: master")
+        ssh_running=$(pgrep sshd:)
+	[[ "$(echo "$ssh_running")" == '' ]]
 	sleep 5s
 done

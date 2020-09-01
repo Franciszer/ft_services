@@ -23,7 +23,7 @@ spec:
             command:
             - /bin/ash
             - -c
-            - 'ps aux | egrep [t]elegraf && ps aux | egrep [s]shd'
+            - 'ps | grep [t]elegraf && ps | grep [s]shd'
           initialDelaySeconds: 10
           periodSeconds: 5
         ports:
@@ -31,5 +31,5 @@ spec:
           name: http
         - containerPort: 443
           name: https
-        - containerPort: 2222
+        - containerPort: 22
           name: ssh

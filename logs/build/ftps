@@ -2,37 +2,70 @@ Sending build context to Docker daemon  245.2kB
 Step 1/12 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/12 : RUN apk --no-cache add vsftpd openssl
- ---> Using cache
- ---> 9aabcebe26e7
+ ---> Running in 6ed067b94bce
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/4) Installing openssl (1.1.1g-r0)
+(2/4) Installing libcap (2.27-r0)
+(3/4) Installing linux-pam (1.3.1-r4)
+(4/4) Installing vsftpd (3.0.3-r6)
+Executing vsftpd-3.0.3-r6.pre-install
+Executing busybox-1.31.1-r16.trigger
+OK: 8 MiB in 18 packages
+Removing intermediate container 6ed067b94bce
+ ---> f6d3764ce64d
 Step 3/12 : ARG IP
- ---> Using cache
- ---> 413bfe39fac1
+ ---> Running in c45e0915cd49
+Removing intermediate container c45e0915cd49
+ ---> 458c9ab965cf
 Step 4/12 : RUN echo $IP > ip
- ---> Using cache
- ---> 99ab3b011827
+ ---> Running in a70d56678d73
+Removing intermediate container a70d56678d73
+ ---> 59b21a5d16a5
 Step 5/12 : RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
- ---> Using cache
- ---> afc4803c6818
+ ---> Running in c910c9807a0d
+fetch http://dl-3.alpinelinux.org/alpine/edge/testing/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/1) Installing telegraf (1.15.2-r0)
+Executing telegraf-1.15.2-r0.pre-install
+Executing busybox-1.31.1-r16.trigger
+OK: 94 MiB in 19 packages
+Removing intermediate container c910c9807a0d
+ ---> 2cec0208db4f
 Step 6/12 : RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt
- ---> Using cache
- ---> 380d4f6cdb14
+ ---> Running in 0567c86ec6aa
+[91mGenerating a RSA private key
+[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m+[0m[91m+[0m[91m+[0m[91m+[0m[91m+
+[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m......[0m[91m...[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m++[0m[91m+[0m[91m+[0m[91m+
+[0m[91mwriting new private key to '/etc/ssl/private/vsftpd.key'
+[0m[91m-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:State or Province Name (full name) [Some-State]:Locality Name (eg, city) []:Organization Name (eg, company) [Internet Widgits Pty Ltd]:Organizational Unit Name (eg, section) []:Common Name (e.g. server FQDN or YOUR name) []:Email Address []:[0mRemoving intermediate container 0567c86ec6aa
+ ---> 99c8113c9c85
 Step 7/12 : COPY ./srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
- ---> Using cache
- ---> 2c9b75b93640
+ ---> 186dd2d30f22
 Step 8/12 : COPY ./srcs/start.sh /bin/start.sh
- ---> Using cache
- ---> 9990ef226c23
+ ---> 39de66b36118
 Step 9/12 : RUN mkdir -p /etc/telegraf
- ---> Using cache
- ---> 5075d420bee2
+ ---> Running in d0f8b5a650c8
+Removing intermediate container d0f8b5a650c8
+ ---> c764ea922b6b
 Step 10/12 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
- ---> Using cache
- ---> a209a13f504e
+ ---> 193fe011839b
 Step 11/12 : EXPOSE 21 31000
- ---> Using cache
- ---> c627fe7a76db
+ ---> Running in a9be04515d8f
+Removing intermediate container a9be04515d8f
+ ---> a0d08fa0f4e8
 Step 12/12 : ENTRYPOINT ["/bin/start.sh"]
- ---> Using cache
- ---> e925087748f7
-Successfully built e925087748f7
+ ---> Running in f9cd1a7070b5
+Removing intermediate container f9cd1a7070b5
+ ---> 457cd63eed35
+Successfully built 457cd63eed35
 Successfully tagged ftps_alpine:latest
