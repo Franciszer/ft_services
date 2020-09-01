@@ -13,4 +13,4 @@ unset NAME PASS FOLDER UID
 IP=$(cat ip)
 
 telegraf &
-exec /usr/sbin/vsftpd -opasv_address=$IP /etc/vsftpd/vsftpd.conf
+./usr/sbin/vsftpd -opasv_address=$IP /etc/vsftpd/vsftpd.conf

@@ -1,2 +1,2 @@
-service/mysql-service created
-persistentvolumeclaim/mysql-pv-claim created
+service/mysql-service unchanged
+persistentvolumeclaim/mysql-pv-claim unchanged

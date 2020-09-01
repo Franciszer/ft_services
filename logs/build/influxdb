@@ -1,45 +1,26 @@
-Sending build context to Docker daemon  240.1kB
+Sending build context to Docker daemon   5.12kB
 Step 1/8 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/8 : RUN apk update && apk add influxdb
- ---> Running in e0c1590cbf1a
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.0-279-g968985993f [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
-v3.12.0-276-gbdd3966958 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
-OK: 12746 distinct packages available
-(1/1) Installing influxdb (1.8.0-r1)
-Executing influxdb-1.8.0-r1.pre-install
-Executing busybox-1.31.1-r16.trigger
-OK: 268 MiB in 15 packages
-Removing intermediate container e0c1590cbf1a
- ---> d9842e86e9b2
+ ---> Using cache
+ ---> 2bc4c5c0e92e
 Step 3/8 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
- ---> Running in af59499c084b
-fetch http://dl-cdn.alpinelinux.org/alpine/edge/testing/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-(1/1) Installing telegraf (1.15.2-r0)
-Executing telegraf-1.15.2-r0.pre-install
-Executing busybox-1.31.1-r16.trigger
-OK: 354 MiB in 16 packages
-Removing intermediate container af59499c084b
- ---> 20e34338e71e
+ ---> Using cache
+ ---> 4fbd64a27002
 Step 4/8 : RUN mkdir -p /etc/telegraf
- ---> Running in 457893b1f785
-Removing intermediate container 457893b1f785
- ---> 2b7f2c4cec3d
+ ---> Using cache
+ ---> a7a8c492ef49
 Step 5/8 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
- ---> 00139c248708
+ ---> Using cache
+ ---> cf6bc1437089
 Step 6/8 : EXPOSE 8086
- ---> Running in f56b512d817c
-Removing intermediate container f56b512d817c
- ---> 69297381d0ec
+ ---> Using cache
+ ---> 656ae7fef708
 Step 7/8 : COPY ./srcs/start.sh /start.sh
- ---> 11af15a7e165
+ ---> Using cache
+ ---> 40aed4a456b6
 Step 8/8 : ENTRYPOINT ["/start.sh"]
- ---> Running in e7a0c4cff6f1
-Removing intermediate container e7a0c4cff6f1
- ---> eb483a24db6b
-Successfully built eb483a24db6b
+ ---> Using cache
+ ---> 64ccaf17f58e
+Successfully built 64ccaf17f58e
 Successfully tagged influxdb_alpine:latest

@@ -1,37 +1,29 @@
-Sending build context to Docker daemon  737.8kB
+Sending build context to Docker daemon  502.8kB
 Step 1/9 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/9 : RUN apk update 	&& apk add mysql mysql-client
  ---> Using cache
- ---> 7e44e1ec584f
+ ---> c5d6b59fa37c
 Step 3/9 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
- ---> Running in ed9971590ce5
-fetch http://dl-cdn.alpinelinux.org/alpine/edge/testing/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-(1/1) Installing telegraf (1.15.2-r0)
-Executing telegraf-1.15.2-r0.pre-install
-Executing busybox-1.31.1-r16.trigger
-OK: 252 MiB in 29 packages
-Removing intermediate container ed9971590ce5
- ---> 6efc9cafa9b0
+ ---> Using cache
+ ---> be12465f0c22
 Step 4/9 : RUN mkdir -p /etc/telegraf
- ---> Running in 325be0597256
-Removing intermediate container 325be0597256
- ---> 95f72083f458
+ ---> Using cache
+ ---> 49a3cf4063d3
 Step 5/9 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
- ---> cb03f70dd170
+ ---> Using cache
+ ---> c15f2e3afbec
 Step 6/9 : ADD srcs/start.sh .
- ---> 24a40b2a6352
+ ---> Using cache
+ ---> a668dd30f565
 Step 7/9 : ADD srcs/my.cnf /etc/
- ---> b57242adb396
+ ---> Using cache
+ ---> d0cc17a8b346
 Step 8/9 : EXPOSE 3306
- ---> Running in d6b28706ee17
-Removing intermediate container d6b28706ee17
- ---> 219ee3dc4c61
+ ---> Using cache
+ ---> 664d9dff31fa
 Step 9/9 : ENTRYPOINT ["/bin/sh", "/start.sh"]
- ---> Running in 102df6b003b3
-Removing intermediate container 102df6b003b3
- ---> 0f4acdec5fee
-Successfully built 0f4acdec5fee
+ ---> Using cache
+ ---> 9cc67a8fc68d
+Successfully built 9cc67a8fc68d
 Successfully tagged mysql_alpine:latest

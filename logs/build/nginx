@@ -1,143 +1,65 @@
-Sending build context to Docker daemon  246.3kB
+Sending build context to Docker daemon  11.26kB
 Step 1/21 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/21 : RUN apk update 	&& apk upgrade 	&& apk add nginx 	&& apk add openssl openssh
- ---> Running in 2e855764bc10
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-v3.12.0-279-g968985993f [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
-v3.12.0-276-gbdd3966958 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
-OK: 12746 distinct packages available
-(1/6) Upgrading musl (1.1.24-r8 -> 1.1.24-r9)
-(2/6) Upgrading busybox (1.31.1-r16 -> 1.31.1-r19)
-Executing busybox-1.31.1-r19.post-upgrade
-(3/6) Upgrading alpine-baselayout (3.2.0-r6 -> 3.2.0-r7)
-Executing alpine-baselayout-3.2.0-r7.pre-upgrade
-Executing alpine-baselayout-3.2.0-r7.post-upgrade
-(4/6) Upgrading ca-certificates-bundle (20191127-r2 -> 20191127-r4)
-(5/6) Upgrading ssl_client (1.31.1-r16 -> 1.31.1-r19)
-(6/6) Upgrading musl-utils (1.1.24-r8 -> 1.1.24-r9)
-Executing busybox-1.31.1-r19.trigger
-OK: 6 MiB in 14 packages
-(1/2) Installing pcre (8.44-r0)
-(2/2) Installing nginx (1.18.0-r0)
-Executing nginx-1.18.0-r0.pre-install
-Executing busybox-1.31.1-r19.trigger
-OK: 7 MiB in 16 packages
-(1/10) Installing openssh-keygen (8.3_p1-r0)
-(2/10) Installing ncurses-terminfo-base (6.2_p20200523-r0)
-(3/10) Installing ncurses-libs (6.2_p20200523-r0)
-(4/10) Installing libedit (20191231.3.1-r0)
-(5/10) Installing openssh-client (8.3_p1-r0)
-(6/10) Installing openssh-sftp-server (8.3_p1-r0)
-(7/10) Installing openssh-server-common (8.3_p1-r0)
-(8/10) Installing openssh-server (8.3_p1-r0)
-(9/10) Installing openssh (8.3_p1-r0)
-(10/10) Installing openssl (1.1.1g-r0)
-Executing busybox-1.31.1-r19.trigger
-OK: 14 MiB in 26 packages
-Removing intermediate container 2e855764bc10
- ---> 43f58114c390
+ ---> Using cache
+ ---> a26f93013e2c
 Step 3/21 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
- ---> Running in 8eddb6fcd125
-fetch http://dl-cdn.alpinelinux.org/alpine/edge/testing/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
-fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
-(1/1) Installing telegraf (1.15.2-r0)
-Executing telegraf-1.15.2-r0.pre-install
-Executing busybox-1.31.1-r19.trigger
-OK: 100 MiB in 27 packages
-Removing intermediate container 8eddb6fcd125
- ---> ec7d5adaa589
+ ---> Using cache
+ ---> 531ec6b33636
 Step 4/21 : COPY srcs/ssh_check.sh /etc/init.d/ssh_check.sh
- ---> 2d2c31eb47b4
+ ---> Using cache
+ ---> 9104e364e8d4
 Step 5/21 : RUN chmod 755 /etc/init.d/ssh_check.sh
- ---> Running in 1f7ada34f491
-Removing intermediate container 1f7ada34f491
- ---> f76a7acc0460
+ ---> Using cache
+ ---> 792e52030de1
 Step 6/21 : RUN rm /etc/nginx/conf.d/default.conf
- ---> Running in cea5075a0da2
-Removing intermediate container cea5075a0da2
- ---> fdcae0d0ea1a
+ ---> Using cache
+ ---> 779e73801837
 Step 7/21 : ADD srcs/default.conf /etc/nginx/conf.d/default.conf
- ---> 730a788c2883
+ ---> Using cache
+ ---> 5c6bee283006
 Step 8/21 : RUN sed -i "s/#Port 22/Port 22/g" /etc/ssh/sshd_config
- ---> Running in 919ee97a43b6
-Removing intermediate container 919ee97a43b6
- ---> c5f73272d8f4
+ ---> Using cache
+ ---> f76cd1e9f7f8
 Step 9/21 : RUN mkdir /run/nginx
- ---> Running in 07c19ec4310f
-Removing intermediate container 07c19ec4310f
- ---> f3a13b0e6e06
+ ---> Using cache
+ ---> bfc1329b57d7
 Step 10/21 : RUN mkdir -p /usr/share/nginx/html
- ---> Running in e09aa92622d7
-Removing intermediate container e09aa92622d7
- ---> 0a46231fac81
+ ---> Using cache
+ ---> d12185f6765a
 Step 11/21 : ADD srcs/index.html /usr/share/nginx/html/index.html
- ---> 8bf3bff66097
+ ---> Using cache
+ ---> 631040a2d22d
 Step 12/21 : RUN chmod 755 /usr/share/nginx/html/index.html
- ---> Running in 367e80569cd4
-Removing intermediate container 367e80569cd4
- ---> 81b7e9b8022c
+ ---> Using cache
+ ---> b7bae7c9b7e5
 Step 13/21 : RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
- ---> Running in b348ce1e16e1
-[91mGenerating a RSA private key
-[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m+[0m[91m+[0m[91m+[0m[91m+[0m[91m+[0m[91m
-[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m.[0m[91m+[0m[91m+[0m[91m+[0m[91m+[0m[91m+
-[0m[91mwriting new private key to '/etc/ssl/private/nginx-selfsigned.key'
-[0m[91m-----
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [AU]:State or Province Name (full name) [Some-State]:Locality Name (eg, city) []:Organization Name (eg, company) [Internet Widgits Pty Ltd]:Organizational Unit Name (eg, section) []:Common Name (e.g. server FQDN or YOUR name) []:Email Address []:[0mRemoving intermediate container b348ce1e16e1
- ---> 8fea5aeb064d
+ ---> Using cache
+ ---> 25473331756a
 Step 14/21 : RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key
- ---> Running in 021a4c102c73
-Generating public/private rsa key pair.
-[91mEnter passphrase (empty for no passphrase): Enter same passphrase again: [0mYour identification has been saved in /etc/ssh/ssh_host_rsa_key
-Your public key has been saved in /etc/ssh/ssh_host_rsa_key.pub
-The key fingerprint is:
-SHA256:7jB5Xvs4rnECCPHKwDpi4XLySj2EVOJFjb7qvv/7pQs root@021a4c102c73
-The key's randomart image is:
-+---[RSA 3072]----+
-| .o+o            |
-|o ++ .           |
-|.=o .            |
-|+oo+ .           |
-|*++.o . S        |
-|+=o.   +         |
-| .oo E+ =.o      |
-|.o  . .*o=.o     |
-|++o..oo+=o+o.    |
-+----[SHA256]-----+
-Removing intermediate container 021a4c102c73
- ---> 098fdee3dee4
+ ---> Using cache
+ ---> ceb6912e0232
 Step 15/21 : COPY srcs/add_user.sh /tmp/add_user.sh
- ---> 23aee873ec74
+ ---> Using cache
+ ---> 756e56df5149
 Step 16/21 : COPY srcs/start.sh /start.sh
- ---> 7a6e5e7fa913
+ ---> Using cache
+ ---> efc6df23759c
 Step 17/21 : RUN sh /tmp/add_user.sh
- ---> Running in 8a3f3f6a3b37
-[91mchpasswd: password for 'admin' changed
-[0mRemoving intermediate container 8a3f3f6a3b37
- ---> a6acedcb95e5
+ ---> Using cache
+ ---> 11500cb1bf9f
 Step 18/21 : RUN mkdir -p /etc/telegraf
- ---> Running in a7a424bd4a89
-Removing intermediate container a7a424bd4a89
- ---> 4d6c977d36b3
+ ---> Using cache
+ ---> 985d42391841
 Step 19/21 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
- ---> 2c7668e19197
+ ---> Using cache
+ ---> b3e444fa6ad1
 Step 20/21 : EXPOSE 80 443 22
- ---> Running in ce856b06a15a
-Removing intermediate container ce856b06a15a
- ---> a22c17887b2d
+ ---> Using cache
+ ---> e35f55ff8432
 Step 21/21 : CMD /usr/sbin/sshd ;  sh /start.sh ;
- ---> Running in 14917b729b1c
-Removing intermediate container 14917b729b1c
- ---> baf6afa60642
-Successfully built baf6afa60642
+ ---> Using cache
+ ---> 30601ee1044a
+Successfully built 30601ee1044a
 Successfully tagged nginx_alpine:latest

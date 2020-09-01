@@ -129,5 +129,3 @@ echo -e "\n${GREEN}ALL DEPLOYMENTS CREATED${NC}\n"
 kubectl get services
 
 cat srcs/useful.txt
-
-minikube dashboard &
