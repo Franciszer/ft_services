@@ -1,0 +1,50 @@
+Sending build context to Docker daemon  244.7kB
+Step 1/16 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/16 : RUN apk update && apk upgrade
+ ---> Using cache
+ ---> 9b5595e4a2cc
+Step 3/16 : RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session
+ ---> Using cache
+ ---> dd290b2fdb37
+Step 4/16 : RUN wget -O wordpress.zip https://wordpress.org/latest.zip
+ ---> Using cache
+ ---> 2e2bb6db03aa
+Step 5/16 : RUN unzip /wordpress.zip -d /usr/share/ 1> /dev/null
+ ---> Using cache
+ ---> 84c4bc11e7a7
+Step 6/16 : RUN rm wordpress.zip
+ ---> Using cache
+ ---> fc58c8410c29
+Step 7/16 : RUN rm -rf /usr/share/wordpress/wp-config.php
+ ---> Using cache
+ ---> 01349b954a0d
+Step 8/16 : RUN rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> eed5ee2be6b0
+Step 9/16 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+ ---> Using cache
+ ---> 18569e52bace
+Step 10/16 : COPY srcs/wp-config.php /usr/share/wordpress/wp-config.php
+ ---> Using cache
+ ---> 54c7aed7a374
+Step 11/16 : RUN mkdir -p /etc/telegraf
+ ---> Using cache
+ ---> aeefc103e918
+Step 12/16 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ ---> Using cache
+ ---> e34acabc6acf
+Step 13/16 : COPY ./srcs/start.sh .
+ ---> Using cache
+ ---> 88d048a14930
+Step 14/16 : RUN chmod 755 /start.sh
+ ---> Using cache
+ ---> 37639935e821
+Step 15/16 : EXPOSE 5050
+ ---> Using cache
+ ---> 088307ab1c65
+Step 16/16 : CMD sh ./start.sh
+ ---> Using cache
+ ---> e5bd6aed1ef5
+Successfully built e5bd6aed1ef5
+Successfully tagged wordpress_alpine:latest

@@ -1,0 +1,26 @@
+Sending build context to Docker daemon  240.1kB
+Step 1/8 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/8 : RUN apk update && apk add influxdb
+ ---> Using cache
+ ---> 6af30043d6f3
+Step 3/8 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+ ---> Using cache
+ ---> 7f19e93cbf24
+Step 4/8 : RUN mkdir -p /etc/telegraf
+ ---> Using cache
+ ---> 979c498eba98
+Step 5/8 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ ---> Using cache
+ ---> d0ca0bea16e7
+Step 6/8 : EXPOSE 8086
+ ---> Using cache
+ ---> ae23cbda55ce
+Step 7/8 : COPY ./srcs/start.sh /start.sh
+ ---> Using cache
+ ---> 0fe919daa46a
+Step 8/8 : ENTRYPOINT ["/start.sh"]
+ ---> Using cache
+ ---> ae0efc354c0c
+Successfully built ae0efc354c0c
+Successfully tagged influxdb_alpine:latest

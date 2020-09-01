@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+      - image: wordpress_alpine
+        imagePullPolicy: Never
+        name: wordpress
+        ports:
+        - containerPort: 5050
+          name: wordpress
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'ps aux | egrep [t]elegraf'
+          initialDelaySeconds: 10
+          periodSeconds: 5

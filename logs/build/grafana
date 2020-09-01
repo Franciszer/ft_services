@@ -1,0 +1,44 @@
+Sending build context to Docker daemon  3.592MB
+Step 1/14 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/14 : RUN apk update && apk add --no-cache --upgrade bash
+ ---> Using cache
+ ---> 2420d7b3a636
+Step 3/14 : RUN apk add telegraf --repository http://dl-4.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+ ---> Using cache
+ ---> 3938bbe00183
+Step 4/14 : RUN wget https://dl.grafana.com/oss/release/grafana-6.7.2.linux-amd64.tar.gz
+ ---> Using cache
+ ---> ab2d69358deb
+Step 5/14 : RUN tar -zxvf grafana-6.7.2.linux-amd64.tar.gz
+ ---> Using cache
+ ---> d74918cded12
+Step 6/14 : RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-compat
+ ---> Using cache
+ ---> 37a91932461b
+Step 7/14 : COPY ./srcs/grafana.db ./grafana-6.7.2/data/
+ ---> Using cache
+ ---> 1f90414ce778
+Step 8/14 : COPY ./srcs/start.sh /start.sh
+ ---> Using cache
+ ---> dda2c1dad1fd
+Step 9/14 : RUN mkdir -p /etc/telegraf
+ ---> Using cache
+ ---> a4827d5a1cb2
+Step 10/14 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ ---> Using cache
+ ---> 29b64e01d12f
+Step 11/14 : COPY ./srcs/start.sh /start.sh
+ ---> Using cache
+ ---> 63566e558498
+Step 12/14 : RUN chmod +x /start.sh
+ ---> Using cache
+ ---> 32748d6eb935
+Step 13/14 : EXPOSE 3000
+ ---> Using cache
+ ---> d7f0945cedb2
+Step 14/14 : CMD ./start.sh
+ ---> Using cache
+ ---> 9d33a1680c6b
+Successfully built 9d33a1680c6b
+Successfully tagged grafana_alpine:latest

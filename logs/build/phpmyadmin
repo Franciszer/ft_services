@@ -1,0 +1,47 @@
+Sending build context to Docker daemon  242.7kB
+Step 1/15 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/15 : RUN apk update && apk upgrade
+ ---> Using cache
+ ---> 9b5595e4a2cc
+Step 3/15 : RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session
+ ---> Using cache
+ ---> dd290b2fdb37
+Step 4/15 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+ ---> Using cache
+ ---> 000228211d58
+Step 5/15 : RUN wget http://files.directadmin.com/services/all/phpMyAdmin/phpMyAdmin-5.0.2-all-languages.tar.gz
+ ---> Using cache
+ ---> a7b90e19bb18
+Step 6/15 : RUN tar zxvf phpMyAdmin-5.0.2-all-languages.tar.gz
+ ---> Using cache
+ ---> c0fd07534115
+Step 7/15 : RUN rm phpMyAdmin-5.0.2-all-languages.tar.gz
+ ---> Using cache
+ ---> 208afb2e1f76
+Step 8/15 : RUN mv phpMyAdmin-5.0.2-all-languages /usr/share/phpmyadmin
+ ---> Using cache
+ ---> 8adb6d479af1
+Step 9/15 : RUN rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> c9e7d22ea77a
+Step 10/15 : COPY srcs/config.inc.php /usr/share/phpmyadmin/config.inc.php
+ ---> Using cache
+ ---> e593d5c2b018
+Step 11/15 : RUN mkdir -p /etc/telegraf
+ ---> Using cache
+ ---> b29685e1a7fd
+Step 12/15 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ ---> Using cache
+ ---> 690206e627c1
+Step 13/15 : COPY ./srcs/start.sh /start.sh
+ ---> Using cache
+ ---> 0e9955261a57
+Step 14/15 : EXPOSE 5000
+ ---> Using cache
+ ---> 7aed4e0008e7
+Step 15/15 : CMD ["/start.sh"]
+ ---> Using cache
+ ---> 91bd641701ab
+Successfully built 91bd641701ab
+Successfully tagged phpmyadmin_alpine:latest

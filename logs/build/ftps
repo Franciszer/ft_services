@@ -1,0 +1,38 @@
+Sending build context to Docker daemon  245.2kB
+Step 1/12 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/12 : RUN apk --no-cache add vsftpd openssl
+ ---> Using cache
+ ---> 9aabcebe26e7
+Step 3/12 : ARG IP
+ ---> Using cache
+ ---> 413bfe39fac1
+Step 4/12 : RUN echo $IP > ip
+ ---> Using cache
+ ---> 99ab3b011827
+Step 5/12 : RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+ ---> Using cache
+ ---> afc4803c6818
+Step 6/12 : RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.crt
+ ---> Using cache
+ ---> 380d4f6cdb14
+Step 7/12 : COPY ./srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
+ ---> Using cache
+ ---> 2c9b75b93640
+Step 8/12 : COPY ./srcs/start.sh /bin/start.sh
+ ---> Using cache
+ ---> 9990ef226c23
+Step 9/12 : RUN mkdir -p /etc/telegraf
+ ---> Using cache
+ ---> 5075d420bee2
+Step 10/12 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ ---> Using cache
+ ---> a209a13f504e
+Step 11/12 : EXPOSE 21 31000
+ ---> Using cache
+ ---> c627fe7a76db
+Step 12/12 : ENTRYPOINT ["/bin/start.sh"]
+ ---> Using cache
+ ---> e925087748f7
+Successfully built e925087748f7
+Successfully tagged ftps_alpine:latest

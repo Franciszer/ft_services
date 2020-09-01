@@ -1,0 +1,65 @@
+Sending build context to Docker daemon  246.3kB
+Step 1/21 : FROM alpine:latest
+ ---> a24bb4013296
+Step 2/21 : RUN apk update 	&& apk upgrade 	&& apk add nginx 	&& apk add openssl openssh
+ ---> Using cache
+ ---> 5e1ba5a5a744
+Step 3/21 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+ ---> Using cache
+ ---> c34bbbf743a7
+Step 4/21 : COPY srcs/ssh_check.sh /etc/init.d/ssh_check.sh
+ ---> Using cache
+ ---> 744585d9baaa
+Step 5/21 : RUN chmod 777 /etc/init.d/ssh_check.sh
+ ---> Using cache
+ ---> 88e37bf6e608
+Step 6/21 : RUN rm /etc/nginx/conf.d/default.conf
+ ---> Using cache
+ ---> 86fbe8ea29ab
+Step 7/21 : ADD srcs/default.conf /etc/nginx/conf.d/default.conf
+ ---> Using cache
+ ---> 6045c75b674a
+Step 8/21 : RUN sed -i -e "s/#Port 22/Port 2222/g" /etc/ssh/sshd_config
+ ---> Using cache
+ ---> fa0d3472407a
+Step 9/21 : RUN mkdir /run/nginx
+ ---> Using cache
+ ---> 9ed2a70ddbfd
+Step 10/21 : RUN mkdir -p /usr/share/nginx/html
+ ---> Using cache
+ ---> f5ac12e0ab32
+Step 11/21 : ADD srcs/index.html /usr/share/nginx/html/index.html
+ ---> Using cache
+ ---> 790f937d4a89
+Step 12/21 : RUN chmod 666 /usr/share/nginx/html/index.html
+ ---> Using cache
+ ---> 60e0f8f807bd
+Step 13/21 : RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+ ---> Using cache
+ ---> 70e368b9e7d9
+Step 14/21 : RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -N ''
+ ---> Using cache
+ ---> 42e5b36c6e54
+Step 15/21 : COPY srcs/add_user.sh /tmp/add_user.sh
+ ---> Using cache
+ ---> 415c7ec449f7
+Step 16/21 : COPY srcs/start.sh /start.sh
+ ---> Using cache
+ ---> 43d260f01354
+Step 17/21 : RUN sh /tmp/add_user.sh
+ ---> Using cache
+ ---> 3b469be1eeef
+Step 18/21 : RUN mkdir -p /etc/telegraf
+ ---> Using cache
+ ---> a84b72f58be4
+Step 19/21 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ ---> Using cache
+ ---> 62145cf004c6
+Step 20/21 : EXPOSE 80 443 2222
+ ---> Using cache
+ ---> 2e9b2abf8f96
+Step 21/21 : CMD /usr/sbin/sshd ;  sh /start.sh ;
+ ---> Using cache
+ ---> 9abb8655a789
+Successfully built 9abb8655a789
+Successfully tagged nginx_alpine:latest
