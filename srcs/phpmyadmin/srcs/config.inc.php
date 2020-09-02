@@ -32,7 +32,7 @@ $i++;
 $cfg['Servers'][$i]['user'] = 'root';
 $cfg['Servers'][$i]['password'] = 'root';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = 'mysql-service';
+$cfg['Servers'][$i]['host'] = 'mysql';
 //$cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 /* Select mysql if your server does not have mysqli */

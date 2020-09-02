@@ -63,7 +63,7 @@ function create_service()
 {
 	kubectl apply -f srcs/services/$@_service.yaml > logs/services/$@ 2>&1
 	echo -e "${LIGHT_BLUE}Creating service $@...${NC}"
-	sleep 2;
+	sleep 1;
 	echo -e "\r\033[1A                                "
 	echo -e "\r\033[1A${GREEN}✓	$@ service successfully created${NC}"
 }

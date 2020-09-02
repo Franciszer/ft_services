@@ -26,14 +26,3 @@ spec:
             - 'ps | grep [t]elegraf'
           initialDelaySeconds: 10
           periodSeconds: 5
-      #   volumeMounts:
-      #   - mountPath: /ftp/user
-      #     name: ftps-volume
-      #   ports:
-      #   - containerPort: 21
-      #   - containerPort: 31000
-      # volumes:
-      # - name: ftps-volume
-      #   hostPath:
-      #     path: /data
-      #     type: DirectoryOrCreate

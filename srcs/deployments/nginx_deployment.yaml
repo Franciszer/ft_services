@@ -23,7 +23,7 @@ spec:
             command:
             - /bin/ash
             - -c
-            - 'ps | grep [t]elegraf && ps | grep [s]shd'
+            - 'ps | grep telegraf && ps | grep sshd'
           initialDelaySeconds: 10
           periodSeconds: 5
         ports:

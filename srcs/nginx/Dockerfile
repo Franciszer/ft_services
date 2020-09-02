@@ -19,9 +19,9 @@ RUN chmod 755 /usr/share/nginx/html/index.html
 RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key
 
-COPY srcs/add_user.sh /tmp/add_user.sh
+# COPY srcs/add_user.sh /tmp/add_user.sh
 COPY srcs/start.sh /start.sh
-RUN sh /tmp/add_user.sh
+# RUN sh /tmp/add_user.sh
 
 RUN mkdir -p /etc/telegraf
 COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf

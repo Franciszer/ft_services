@@ -2,8 +2,8 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : mysql-service
--- Généré le : lun. 31 août 2020 à 14:44
+-- Hôte : mysql
+-- Généré le : lun. 31 août 2020 à 14:49
 -- Version du serveur :  10.4.13-MariaDB
 -- Version de PHP : 7.3.21
 
