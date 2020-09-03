@@ -1,50 +1,50 @@
-Sending build context to Docker daemon  9.728kB
+Sending build context to Docker daemon  9.216kB
 Step 1/16 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/16 : RUN apk update && apk upgrade
  ---> Using cache
- ---> ac2a221ff187
+ ---> d24e1534b312
 Step 3/16 : RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session
  ---> Using cache
- ---> 3c96640cef29
+ ---> 55468de8a6fe
 Step 4/16 : RUN wget -O wordpress.zip https://wordpress.org/latest.zip
  ---> Using cache
- ---> cffc8027047b
+ ---> 578fb93d4c7e
 Step 5/16 : RUN unzip /wordpress.zip -d /usr/share/ 1> /dev/null
  ---> Using cache
- ---> eee484eb24dd
+ ---> 4593a50368a5
 Step 6/16 : RUN rm wordpress.zip
  ---> Using cache
- ---> 674d0e172fff
+ ---> e160818d6dd4
 Step 7/16 : RUN rm -rf /usr/share/wordpress/wp-config.php
  ---> Using cache
- ---> 4a14644ca7b8
+ ---> c8b02d110144
 Step 8/16 : RUN rm -rf /var/cache/apk/*
  ---> Using cache
- ---> 3560dbc94148
+ ---> 4808584a6d62
 Step 9/16 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
  ---> Using cache
- ---> 8d84352c2388
+ ---> 79ee2dc0ce6c
 Step 10/16 : COPY srcs/wp-config.php /usr/share/wordpress/wp-config.php
  ---> Using cache
- ---> 883766163bba
+ ---> 4913f19c4e70
 Step 11/16 : RUN mkdir -p /etc/telegraf
  ---> Using cache
- ---> eae2fcd3f51f
+ ---> f3390aeb2844
 Step 12/16 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
  ---> Using cache
- ---> ac307a9d7aa6
+ ---> 2f631e005098
 Step 13/16 : COPY ./srcs/start.sh .
  ---> Using cache
- ---> 3c76c7b0ee1f
+ ---> 95a6200c70d8
 Step 14/16 : RUN chmod 755 /start.sh
  ---> Using cache
- ---> 00513235b357
+ ---> 3086976e1ea7
 Step 15/16 : EXPOSE 5050
  ---> Using cache
- ---> 5e7c2f25fdbd
+ ---> 6ab2d5e04b00
 Step 16/16 : CMD sh ./start.sh
  ---> Using cache
- ---> 0e9725985ff6
-Successfully built 0e9725985ff6
+ ---> 31b86660e5a1
+Successfully built 31b86660e5a1
 Successfully tagged wordpress_alpine:latest

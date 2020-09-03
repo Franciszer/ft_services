@@ -1,2 +1,2 @@
-service/influxdb-service unchanged
-persistentvolumeclaim/influxdb unchanged
+service/influxdb created
+persistentvolumeclaim/influxdb created

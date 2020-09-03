@@ -3,42 +3,42 @@ Step 1/14 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/14 : RUN apk update && apk add --no-cache --upgrade bash
  ---> Using cache
- ---> 5afd9ee7c6ed
+ ---> 8a823f7ab121
 Step 3/14 : RUN apk add telegraf --repository http://dl-4.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
  ---> Using cache
- ---> 5261487190f6
+ ---> 30e90cdd57d3
 Step 4/14 : RUN wget https://dl.grafana.com/oss/release/grafana-6.7.2.linux-amd64.tar.gz
  ---> Using cache
- ---> c8cc5cd700dc
+ ---> 46afde6bd4ac
 Step 5/14 : RUN tar -zxvf grafana-6.7.2.linux-amd64.tar.gz
  ---> Using cache
- ---> a1ef75da4ec3
+ ---> 8beca6de05fd
 Step 6/14 : RUN apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main libc6-compat
  ---> Using cache
- ---> db41c4c4087b
+ ---> f1a0ad15f41b
 Step 7/14 : COPY ./srcs/grafana.db ./grafana-6.7.2/data/
- ---> Using cache
- ---> b62ce40f23ed
+ ---> 35d9abd3230d
 Step 8/14 : COPY ./srcs/start.sh /start.sh
- ---> Using cache
- ---> 8dfa4197153d
+ ---> a718c043a050
 Step 9/14 : RUN mkdir -p /etc/telegraf
- ---> Using cache
- ---> 1f9954b5fd2f
+ ---> Running in c6dfc22378dd
+Removing intermediate container c6dfc22378dd
+ ---> 120eba7bb655
 Step 10/14 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
- ---> Using cache
- ---> 870f4ba125a5
+ ---> 993a22681f50
 Step 11/14 : COPY ./srcs/start.sh /start.sh
- ---> Using cache
- ---> 176e37b0199e
+ ---> 16286684ac4d
 Step 12/14 : RUN chmod +x /start.sh
- ---> Using cache
- ---> 73c442a593c1
+ ---> Running in 01790789c707
+Removing intermediate container 01790789c707
+ ---> 3c80df01687b
 Step 13/14 : EXPOSE 3000
- ---> Using cache
- ---> 6febd41a00f6
+ ---> Running in df29f08cb412
+Removing intermediate container df29f08cb412
+ ---> 1f19e4f47b88
 Step 14/14 : CMD ./start.sh
- ---> Using cache
- ---> 7238bd34bb3e
-Successfully built 7238bd34bb3e
+ ---> Running in c747f4e0b448
+Removing intermediate container c747f4e0b448
+ ---> d883f00f40cd
+Successfully built d883f00f40cd
 Successfully tagged grafana_alpine:latest

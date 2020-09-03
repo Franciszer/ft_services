@@ -3,24 +3,24 @@ Step 1/8 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/8 : RUN apk update && apk add influxdb
  ---> Using cache
- ---> 2bc4c5c0e92e
+ ---> 2def1c499963
 Step 3/8 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
  ---> Using cache
- ---> 4fbd64a27002
+ ---> 572e71043dfb
 Step 4/8 : RUN mkdir -p /etc/telegraf
  ---> Using cache
- ---> a7a8c492ef49
+ ---> c25e545a530d
 Step 5/8 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
  ---> Using cache
- ---> cf6bc1437089
+ ---> fd62d794af1f
 Step 6/8 : EXPOSE 8086
  ---> Using cache
- ---> 656ae7fef708
+ ---> 76b305e34e52
 Step 7/8 : COPY ./srcs/start.sh /start.sh
  ---> Using cache
- ---> 40aed4a456b6
+ ---> 8f772d16ec87
 Step 8/8 : ENTRYPOINT ["/start.sh"]
  ---> Using cache
- ---> 64ccaf17f58e
-Successfully built 64ccaf17f58e
+ ---> 961375bbe13d
+Successfully built 961375bbe13d
 Successfully tagged influxdb_alpine:latest

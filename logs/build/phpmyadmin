@@ -3,45 +3,45 @@ Step 1/15 : FROM alpine:latest
  ---> a24bb4013296
 Step 2/15 : RUN apk update && apk upgrade
  ---> Using cache
- ---> ac2a221ff187
+ ---> d24e1534b312
 Step 3/15 : RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session
  ---> Using cache
- ---> 3c96640cef29
+ ---> 55468de8a6fe
 Step 4/15 : RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
  ---> Using cache
- ---> a3a1aa2316ab
+ ---> 471dab8d5849
 Step 5/15 : RUN wget http://files.directadmin.com/services/all/phpMyAdmin/phpMyAdmin-5.0.2-all-languages.tar.gz
  ---> Using cache
- ---> 8de53330d476
+ ---> d05994191105
 Step 6/15 : RUN tar zxvf phpMyAdmin-5.0.2-all-languages.tar.gz
  ---> Using cache
- ---> 7ea2fbc2ea34
+ ---> 2279903a8c94
 Step 7/15 : RUN rm phpMyAdmin-5.0.2-all-languages.tar.gz
  ---> Using cache
- ---> bd6d787ada3c
+ ---> 47bd7e483b39
 Step 8/15 : RUN mv phpMyAdmin-5.0.2-all-languages /usr/share/phpmyadmin
  ---> Using cache
- ---> dfeba350e1b5
+ ---> cb07820ced7c
 Step 9/15 : RUN rm -rf /var/cache/apk/*
  ---> Using cache
- ---> d05a3a0d4b29
+ ---> d76cb6fe4470
 Step 10/15 : COPY srcs/config.inc.php /usr/share/phpmyadmin/config.inc.php
  ---> Using cache
- ---> d858de471d75
+ ---> d8ea3772f9d8
 Step 11/15 : RUN mkdir -p /etc/telegraf
  ---> Using cache
- ---> 9389b5a4f985
+ ---> e9df7550380e
 Step 12/15 : COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
- ---> e19049d5b2ac
+ ---> Using cache
+ ---> bf1e15215917
 Step 13/15 : COPY ./srcs/start.sh /start.sh
- ---> 40c2601177d9
+ ---> Using cache
+ ---> 7e772683feaa
 Step 14/15 : EXPOSE 5000
- ---> Running in 68c6ffda3354
-Removing intermediate container 68c6ffda3354
- ---> 6a472da83ba6
+ ---> Using cache
+ ---> cb760a2f01ee
 Step 15/15 : CMD ["/start.sh"]
- ---> Running in adc648d0c132
-Removing intermediate container adc648d0c132
- ---> 75b0e83407cc
-Successfully built 75b0e83407cc
+ ---> Using cache
+ ---> 725d61df0ce9
+Successfully built 725d61df0ce9
 Successfully tagged phpmyadmin_alpine:latest
