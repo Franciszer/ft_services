@@ -30,6 +30,6 @@ spec:
             command:
             - /bin/ash
             - -c
-            - 'ps | grep [t]elegraf'
+            - 'pgrep telegraf'
           initialDelaySeconds: 10
           periodSeconds: 5

@@ -5,7 +5,7 @@ RUN apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl p
 
 RUN wget -O wordpress.zip https://wordpress.org/latest.zip
 RUN unzip /wordpress.zip -d /usr/share/ 1> /dev/null
-RUN rm wordpress.zip
+RUN rm -rf wordpress.zip
 RUN rm -rf /usr/share/wordpress/wp-config.php
 RUN rm -rf /var/cache/apk/*
 

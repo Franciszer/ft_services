@@ -7,8 +7,8 @@ RUN apk update \
 
 RUN apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 
-COPY srcs/ssh_check.sh /etc/init.d/ssh_check.sh
-RUN chmod 755 /etc/init.d/ssh_check.sh
+# COPY srcs/ssh_check.sh /etc/init.d/ssh_check.sh
+# RUN chmod 755 /etc/init.d/ssh_check.sh
 RUN rm /etc/nginx/conf.d/default.conf
 ADD srcs/default.conf /etc/nginx/conf.d/default.conf
 RUN sed -i "s/#Port 22/Port 22/g" /etc/ssh/sshd_config
@@ -19,9 +19,7 @@ RUN chmod 755 /usr/share/nginx/html/index.html
 RUN yes "" | openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
 RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key
 
-# COPY srcs/add_user.sh /tmp/add_user.sh
 COPY srcs/start.sh /start.sh
-# RUN sh /tmp/add_user.sh
 
 RUN mkdir -p /etc/telegraf
 COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf

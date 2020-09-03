@@ -115,7 +115,7 @@ echo -e "\n${GREEN}ALL SERVICES CREATED${NC}\n"
 
 # SERVICES DEPLOYMENTS
 
-echo -e "\n${YELLOW}____CREATING DEPLOYMENTS____\n${NC}"
+echo -e "${YELLOW}____CREATING DEPLOYMENTS____\n${NC}"
 
 for APP in $APPLIST
 do

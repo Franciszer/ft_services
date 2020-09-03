@@ -8,7 +8,7 @@ echo -e "$PASS\n$PASS" | adduser -h $FOLDER -s /sbin/nologin -u 1000 $NAME
 
 mkdir -p $FOLDER
 chown $NAME:$NAME $FOLDER
-unset NAME PASS FOLDER UID
+unset NAME PASS FOLDER
 
 IP=$(cat ip)
 
