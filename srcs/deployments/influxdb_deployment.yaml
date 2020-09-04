@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: influxdb
-        image: influxdb_alpine
+        image: influxdb
         imagePullPolicy: Never
         livenessProbe:
           exec:

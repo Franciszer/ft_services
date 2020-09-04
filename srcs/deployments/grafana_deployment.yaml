@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana_alpine
+        image: grafana
         imagePullPolicy: Never
         livenessProbe:
           exec:

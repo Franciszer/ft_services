@@ -15,7 +15,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx_alpine
+      - image: nginx
         imagePullPolicy: Never
         name: nginx
         livenessProbe:

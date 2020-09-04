@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql_alpine
+        image: mysql
         imagePullPolicy: Never
         ports:
         - containerPort: 3306

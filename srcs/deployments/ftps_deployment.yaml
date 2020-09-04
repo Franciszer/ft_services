@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ftps
-        image: ftps_alpine
+        image: ftps
         imagePullPolicy: Never
         livenessProbe:
           exec:

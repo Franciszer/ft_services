@@ -11,7 +11,3 @@ phpmyadmin:
 	pass: admin
 -grafana:
 	admin:admin1234
-
-
-TODO:
-	-modify grafana data sources ("influxdb-services -> influxdb)

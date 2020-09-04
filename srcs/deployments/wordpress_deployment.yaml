@@ -19,7 +19,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: wordpress_alpine
+      - image: wordpress
         imagePullPolicy: Never
         name: wordpress
         ports:

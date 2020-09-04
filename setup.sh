@@ -28,11 +28,11 @@ function build_container()
 	echo -e "${LIGHT_BLUE}Building $@ container...${NC}"
 	if [[ $@ == 'ftps' ]]
 	then
-		docker build -t $@_alpine srcs/$@ --build-arg IP=${FTPS_IP} > logs/build/$@ 2>&1
+		docker build -t $@ srcs/$@ --build-arg IP=${FTPS_IP} > logs/build/$@ 2>&1
 	else
-		docker build -t $@_alpine srcs/$@ > logs/build/$@ 2>&1
+		docker build -t $@ srcs/$@ > logs/build/$@ 2>&1
 	fi
-	echo -e "\r\033[1A                                                            "
+	echo -en "\r\033[1A                                                            "
 	echo -e "\r\033[1A${GREEN}✓	$@ container successfully built${NC}"
 }
 
@@ -82,6 +82,7 @@ mkdir ./logs/services > /dev/null 2>&1
 # SETTING UP MINIKUBE
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
+	minikube delete
 	minikube start --vm-driver=docker
 	minikube addons enable metrics-server
 	minikube addons enable dashboard
