@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - name: influxdb
+        image: influxdb
+        imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - /bin/ash
+            - -c
+            - 'pgrep telegraf'
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        volumeMounts:
+        - name: influxdb
+          mountPath: /var/lib/influxdb
+        ports:
+        - containerPort: 8086
+      volumes:
+      - name: influxdb
+        persistentVolumeClaim:
+          claimName: influxdb
